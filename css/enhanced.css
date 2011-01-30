@@ -1,0 +1,56 @@
+.as-selections {background:none !important;border:1px solid #BFBAAE;
+border-radius:6px;
+-moz-border-radius:6px;
+-webkit-box-shadow: inset 1px 1px 5px #ccc;
+-moz-box-shadow: inset 1px 1px 5px #ccc;
+box-shadow: inset 1px 1px 5px #ccc;
+}
+.prompt{padding-left:8px;text-align:left}
+button:focus,button:focus::-moz-focus-inner,area:focus::-moz-focus-inner{border:none;}
+#submit-btn.btn-disabled{border: 1px solid #999;
+background-image:none !important;
+   background-color: #efefef;
+   -moz-border-radius: 6px;
+   border-radius:6px;
+   box-shadow: inset 0 1px 3px #fff, inset 0 -15px #DFDFDF, 0 0 3px #ccc;
+   -o-box-shadow: inset 0 1px 3px #fff, inset 0 -15px #DFDFDF, 0 0 3px #ccc;
+   -webkit-box-shadow: inset 0 1px 3px #fff, inset 0 -15px #DFDFDF, 0 0 3px #ccc;
+   -moz-box-shadow: inset 0 1px 3px #fff, inset 0 -15px #DFDFDF, 0 0 3px #ccc;
+   color: #999;
+   text-shadow: 0 1px #fff;
+}
+.btn-enabled { border: 1px solid #8ec1da;font-weight:normal;
+background-image:none !important;
+   background-color: #ddeef6;
+   -moz-border-radius: 6px;
+   border-radius:6px;
+   box-shadow: inset 0 1px 3px #fff, inset 0 -15px #cbe6f2, 0 0 3px #8ec1da;
+   -o-box-shadow: inset 0 1px 3px #fff, inset 0 -15px #cbe6f2, 0 0 3px #8ec1da;
+   -webkit-box-shadow: inset 0 1px 3px #fff, inset 0 -15px #cbe6f2, 0 0 3px #8ec1da;
+   -moz-box-shadow: inset 0 1px 3px #fff, inset 0 -15px #cbe6f2, 0 0 3px #8ec1da;
+   color: #3985a8;
+   text-shadow: 0 1px #fff;
+}
+
+.btn-enabled:hover,.btn-enabled:focus {
+border: 2px solid #8ec1da;
+   background: none #E4F1F8;
+   -moz-border-radius: 6px;
+   border-radius:6px;
+   box-shadow: inset 0 1px 3px #fff, inset 0 -15px #cbe6f2;
+   -o-box-shadow: inset 0 1px 3px #fff, inset 0 -15px #cbe6f2;
+   -webkit-box-shadow: inset 0 1px 3px #fff, inset 0 -15px #cbe6f2;
+   -moz-box-shadow: inset 0 1px 3px #fff, inset 0 -15px #cbe6f2;}
+
+ul.as-list,.tool-tip {
+border: 2px solid #8ec1da;
+box-shadow:  2px 2px 8px 0 #666;
+border-radius:6px ;
+-moz-border-radius: 6px;
+-moz-box-shadow: 2px 2px 8px 0 #666;
+-webkit-box-shadow:  2px 2px 8px 0 #666;
+
+
+}
+ul.as-list li:first-child{-moz-border-radius-topleft: 6px;-moz-border-radius-topright: 6px;border-top-left-radius: 6px;border-top-right-radius: 6px;border-top-left-radius: 6px;border-top-right-radius: 6px;}
+ul.as-list li:last-child{-moz-border-radius-bottomleft: 6px;-moz-border-radius-bottomright: 6px;border-bottom-left-radius: 6px;border-bottom-right-radius: 6px;}

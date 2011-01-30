@@ -1,0 +1,141 @@
+/* General */
+html{overflow:scroll;height:100%;width:100%;}
+body{font-family:Arial, Helvetica, sans-serif; min-height:500px;margin:0;padding:0;text-align:center;font-size:62.5%}
+img{border:none}
+p{text-align:left;}
+a,a:link,a:visited,a:active{color:#0e469a;background:transparent}
+.content{margin:30px auto;width:650px;font-size:1.4em;}
+.map{width:1024px }
+td.hover{background:#666 !important;color:#fff !important;}
+td.hover a{background:#666 ;color:#fff}
+
+acronym{border:none}
+area.focus,area:focus{outline:none !important ;border:none}
+.tooltip{background:url(../images/info-icon.jpg) no-repeat right top;padding-right:14px;}
+.tooltip {text-decoration:none;border-bottom:1px dashed #0e469a}
+.clear{clear:both}
+.hidden{display:none}
+.hide {left:-999em;position:absolute;top:-999em;}
+.mobile {width:320px;}
+.landscape {width:480px;}
+.mobile .content{width:320px}
+.landscape .content{width:480px}
+.tab .content{width:100%}
+.tab .landscape .content{width:100%}
+.mobile #help-btn,.mobile #choose-from-list-btn{}
+.forcedisplayblock{display:block}
+
+a:hover{text-decoration:none}
+.focus{background:#0E469A !important;position:static;left:0;top:0;color:#fff !important;text-decoration:none;padding:0 3px;}
+a.back{text-align:left;float:left;display:block;width:auto;clear:both;}
+
+fieldset{border:none}
+legend{left:-999em;position:absolute;top:-999em;}
+* html caption{visibility:hidden;}
+/* organisation-select-view */
+
+    .tool-tip { font-size:1.2em;text-align:left;display: none; color: #000; border:1px solid #2482C0; padding: 10px; background: #fff;  width: 199px; z-index: 13000; }
+	.tool-tip  h2{margin:0;padding:0;font-size:1.1em;}
+	.tool-tip p, .tool-tip ul{}
+    .tool-title { font-weight: bold; padding: 0 0 0px 0; }
+	dt,dd{font-size:1em;margin:0;padding:0;text-align:left;}
+	dt{margin-bottom:4px}
+	dd{margin-bottom:12px}
+#organisation-select-view{}
+.portable #organisation-select-view{width:auto !important}
+	#organisation-select-view h2{margin:}
+	#co-branding{text-align:center}
+	h1{font-size:1.8em;color:#666666;font-weight:normal;text-align:left;clear:both;}
+	.subheading{margin:24px 0 27px 0;font-size:1em;}
+	#organisation-select-view h1,#organisation-select-view.subheading{text-align:center;}
+	
+	#hints{margin:10px auto;list-style:none;width:370px;clear:both;overflow:hidden;}
+		#hints .hint{width:100px;float:left;margin:0 20px 0 0;text-align:center;}
+		#hints .hint a{text-decoration:none ;border:none}
+		#hints .hint a.hint-link:hover{text-decoration:underline}
+		#hints .hint a.hint-link:hover img{text-decoration:none}
+		#hints .hint a.hint-link{margin:0 0 0 6px;font-size:1em;font-weight:bold;}
+		#hints .hint .remove-org-btn{clear:both;display:block;}
+	/* organisation form */
+	#organisation-input{background:url(../images/search-field-bg.jpg) no-repeat;width:408px;height:23px;border:none;margin:31px 0 0 140px;font-size:0.75em;padding:5px 0 5px 11px;_padding:8px 0 2px 11px}
+	#organisation-input:hover{background:url(../images/search-field-bg.jpg) no-repeat 0 100%}
+	#combobox{margin: 0  8px 0 0;padding:5px 10px 5px 0;height:34px;font-size:1em;line-height:6.8em !important;overflow:hidden;}
+		.quick-link{float:right;}
+		.quick-link:hover{text-decoration:underline;cursor:pointer}
+	.search{width:522px;margin:0 auto;}
+	.mobile .search{width:auto;margin:0 auto;}
+	#results{margin-left:0;padding-left:55px;overflow:hidden;text-align:left}
+	h1.results{text-align:left !important;margin-left:0;padding-left:65px}
+	.bullet{list-style:none;text-align:left;margin:0 0 0 8px;padding:0;}
+	.bullet li{	background: #fff url(../images/arrow-right.gif) no-repeat  0 50%;margin:0;padding:0 0 0 15px;text-align:left;}
+	#results li{	background: #fff url(../images/arrow-right.gif) no-repeat  0 50%;padding:0 0 0 15px; list-style:none;border:none;width:auto;float:left;clear:both;}
+	#results li.as-result-item{text-decoration:underline;color:#0E4699}
+	#results li:hover{background:#fff;text-decoration:none;}
+	#results li.as-result-item em{color:#0E4699}
+	#results li a,#results li:hover a{display:none}
+	
+	#submit-btn{}
+		.btn-enabled{background:url(../images/search-btn.jpg) no-repeat;color:#444444;width:92px;height:34px;border:none;padding:1px  0px 5px;font-size:1em;font-weight:bold;cursor:pointer}
+		.btn-enabled:hover{background:url(../images/search-btn.jpg) no-repeat 0 49%;}
+		.btn-disabled{background:url(../images/search-btn.jpg) no-repeat 0 98%;color:#666;width:92px;height:34px;border:none;padding:1px  0px 5px;font-size:1em;font-weight:normal;}
+		
+	.assist{padding-left:76px;margin:13px 0 0 13px;text-align:left;margin:0 auto;}
+	.mobile .assist{padding-left: 13px;}
+	.mobile .assist br{display:none}
+	
+	#footer-text{text-align:center;margin:30px 0 0 0px;font-size:0.85em;clear:both;}
+		
+	
+		
+	/*
+	..ui-menu .ui-menu-item a {display:inline !important}
+	.ui-autocomplete a.ui-state-hover{background:none !important;border:none !important}
+	*/
+	
+#help-view{}
+img#map_tight{}
+
+	#help-view #map{width:463px;float:left;overflow:hidden;background:url(../images/map/images/map_tight.jpg) no-repeat ;outline:none;}
+	/* Table styles */
+	#help-view #regions-table{width:505px;margin:8px 0 0 12px;float:left;}
+	#help-view #regions-table table{border-collapse:collapse;font-size:0.85em}
+	#help-view #regions-table table p{margin:0}
+	#help-view #regions-table th{font-size:1.2em;vertical-align:middle;text-align:left;text-align:left;background:url(../images/table_header_bg.jpg) repeat-x;height:40px}
+	#help-view #regions-table th.col-1{padding:0px 0 0 11px}
+	#help-view #regions-table tr{border-bottom:1px solid #FFFFFF;height:42px;vertical-align:top;}
+	#help-view #regions-table td{padding:0;text-align:left;}
+	#help-view #regions-table th{padding:0}
+	#help-view #regions-table .color-block{width:10px;}
+	#help-view #regions-table th.col-1{width:142px}
+	#help-view #regions-table tr td.col-1{padding:5px 0 0 8px;}
+	#help-view #regions-table th.col-2{width:239px;padding:0 0 0 16px;}
+	#help-view #regions-table td.col-2{padding:5px 0 0 16px;}
+	
+	
+	#help-view #regions-table tr.even td.col-1,
+	#help-view #regions-table tr.even td.col-2{background:#F4F4F4}
+	
+	#help-view #regions-table .color-block{width:10px;}
+	#help-view #regions-table td.Scotland{background:#9898CC;}
+	#help-view #regions-table td.NorthEast {background:#FFD008;}
+	#help-view #regions-table td.YorkshireandHumber{background:#CF9A66;}
+	#help-view #regions-table td.EastMidlands{background:#E17AAF;}
+	#help-view #regions-table td.EastofEngland{background:#66C8C9;}
+	#help-view #regions-table td.London{background:#F05368;}
+	#help-view #regions-table td.SouthEast {background:#F8981D;}
+	#help-view #regions-table td.SouthWest{background:#9A9B35;}
+	#help-view #regions-table td.WestMidlands{background:#6787D0;}
+	#help-view #regions-table td.Wales {background:#F36639;}
+	#help-view #regions-table td.NorthWest {background:#75C785;}
+	#help-view #regions-table td.NorthernIreland {background:#C19DC1;}
+	#help-view #regions-table td.CumbriaandLancashire{background:#C6BE75;}
+
+	
+	#help-others-view{}
+	#help-others-view h1{}
+	#help-others-view dt{margin:15px 0 0;background:url(../images/arrow-right.gif) no-repeat  0 50%;padding:0 0 0 15px;}
+	#help-others-view dt.open{background:url(../images/arrow-down.gif) no-repeat  0 50%;padding:0 0 0 15px;}
+	#help-others-view dd{margin:0 0 30px 15px;}
+	#help-others-view dd li{list-style-type:disc;}
+	#region-list-view ul{margin:0;padding:0;}
+	#region-list-view li{list-style:none;margin:3px 0;text-align:left;background:url(../images/arrow-right.gif) no-repeat  0 50%;padding:0 0 0 15px;}
