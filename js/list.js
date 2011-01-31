@@ -6,7 +6,7 @@ $(document).ready(function(){
 if (typeof isPocket == "undefined"){
 	isPocket = false;isTab = false;isIphone = false;isAndroid = false
 }
-
+	
 	if(!isPocket && !isTab){
 		$("a").focus(function(){
 			$("a").removeClass("focus")
@@ -20,7 +20,7 @@ if (typeof isPocket == "undefined"){
 			$(this).unbind("focus").removeClass("focus")
 		}); 
 	}
-	
+
 	// demonstration function to retrieve document location (lat,long)
 	// assuming lat,long info available for each idp or idp region
 	// where the drop list items are sorted by locality to the user	
@@ -38,17 +38,32 @@ if (typeof isPocket == "undefined"){
 
 	}
 
-	if(!isPocket){
-		
-		// enable tooltips
-		$(".tooltip").toolTip({'title':"",'text':$("#intro").html()})
-		$(".tooltip").attr("tabindex","1")
-		}
-	// read hints form the cookie
-	loadHints();
-			
-
 	
+			// form submission 
+		$("#submit-btn").click(function(e){
+
+
+			if ($("#combobox").val() != ''){
+				// user has made a specific selection from the list
+				// record the hint	
+				createCookie("_saml_idp",$.base64Encode($("#combobox").val()),expires, "append")
+				
+				//construct the URL to redirect
+				// eg:
+				// var entityURI = "";
+				// entityURI = $('#hid1').val() + $('#hid2').val() + $('#hid3').val() + $('#hid4').val() + $('#hid5').val(); location.href= entityURI;
+				// location.href = entityURI
+
+			}
+				
+				return false;
+			})
+		
+		// read hints form the cookie
+		loadHints();
+		
+		
+
 })
 
 
