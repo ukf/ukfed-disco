@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=UTF-8" %> 
 <%@ page language="java" import="java.util.*,edu.internet2.middleware.shibboleth.wayf.*,java.lang.*,org.opensaml.xml.*, edu.internet2.middleware.shibboleth.wayf.idpdisco.*,javax.servlet.http.*"%>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
 <%@ taglib uri="/WEB-INF/tlds/struts-logic.tld" prefix="logic" %>
 <%@ taglib uri="/WEB-INF/tlds/struts-bean.tld" prefix="bean" %>
@@ -11,32 +11,46 @@
 <%response.setCharacterEncoding("UTF-8");%>
 
 <%
-  TreeSet<IdPSite> sites;
-  StringBuilder urlBuilder = new StringBuilder();
+   TreeSet<IdPSite> sites;
+   StringBuilder urlBuilder = new StringBuilder();
 
-  sites = (TreeSet<IdPSite>) request.getAttribute("sites");
+   String shire = (String) request.getAttribute("shire");
+   String target = (String) request.getAttribute("target");
+   String providerId = (String) request.getAttribute("providerId");
+   String time = (String) request.getAttribute("time");
+   
+   String entityId = (String) request.getAttribute("entityID");
+   String returnX = (String) request.getAttribute("returnX");
+   if (null == returnX) returnX = request.getParameter("returnX");
+   String returnIDParam = (String) request.getAttribute("returnIDParam");
+   
+   Boolean saml1Protocol = (null == entityId);
+
+   sites = (TreeSet<IdPSite>) request.getAttribute("sites");
   
-  if (null == sites) {
+   if (null == sites) {
       // Been here already
       sites = (TreeSet<IdPSite>) session.getValue("sites");
       if (null == sites) { %>
-<jsp:forward page = "wayferror.jsp"/>
+<jsp:forward page = "noBookmark.html"/>
       <% }
       urlBuilder.append((String) session.getValue("returnURL"));
+
+      saml1Protocol = (Boolean) session.getValue("saml1Protocol");
+      if (saml1Protocol) {
+         shire = (String) session.getValue("shire");
+         target = (String) session.getValue("target");
+         providerId = (String) session.getValue("providerId");
+         time = (String) session.getValue("time");
+      } else {
+         entityId = (String) session.getValue("entityID");
+         returnX = (String) session.getValue("returnX");
+         returnIDParam = (String) session.getValue("returnIDParam");
+      }
+
   } else { 
-      String shire = (String) request.getAttribute("shire");
-      String target = (String) request.getAttribute("target");
-      String providerId = (String) request.getAttribute("providerId");
-      String time = (String) request.getAttribute("time");
-      
-      String entityId = (String) request.getAttribute("entityID");
-      String returnX = (String) request.getAttribute("returnX");
-      if (null == returnX) returnX = request.getParameter("returnX");
-      String returnIDParam = (String) request.getAttribute("returnIDParam");
-      
-      String requestURL = (String) request.getAttribute("requestURL");
-  
-      Boolean saml1Protocol = (null == entityId);
+      saml1Protocol = (null == entityId);
+//      urlBuilder.append((String) request.getAttribute("requestURL"));
 
       if (!saml1Protocol) {
           urlBuilder.append("WAYF?entityID=");
@@ -45,6 +59,12 @@
           urlBuilder.append(java.net.URLEncoder.encode(returnX, "utf-8"));
           urlBuilder.append("&returnIDParam=");
           urlBuilder.append(java.net.URLEncoder.encode(returnIDParam, "utf-8" ));
+
+         session.putValue("shire", shire);
+         session.putValue("target", target);
+         session.putValue("providerId", providerId);
+         session.putValue("time", time);
+
       } else {
           urlBuilder.append("?target=");
           urlBuilder.append(java.net.URLEncoder.encode(target,"utf-8"));
@@ -56,15 +76,16 @@
               urlBuilder.append("&time");
               urlBuilder.append(time);
           }
+         session.putValue("entityID", entityId);
+         session.putValue("returnX", returnX);
+         session.putValue("returnIDParam", returnIDParam);
       }
       urlBuilder.append("&cache=Nperm&action=selection&origin=");
       session.putValue("returnURL", urlBuilder.toString());
       session.putValue("sites", sites);
-      session.setMaxInactiveInterval(-1);
+      session.putValue("saml1Protocol", saml1Protocol);
   }
   %>
-
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Type an organisation name: Which organisation would you like to sign in with?</title>
@@ -122,7 +143,7 @@ var theLogos=[];<%
      theLogos['https://lib.bsfc.ac.uk/idp/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/BSFC-Logo.png';
      theLogos['https://sso.bsfc.ac.uk/idp/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/BSFC-Logo.png';
      theLogos['urn:mace:eduserv.org.uk:athens:provider:liv.ac.uk']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/liverpool.gif';
-     theLogos['https://idp.glowscotland.org.uk/shibboleth]='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/glow.gif';
+     theLogos['https://idp.glowscotland.org.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/glow.gif';
 </script>
 
 
@@ -172,18 +193,23 @@ var theLogos=[];<%
 			<legend>Choose your organisation from the list or type your organisation name</legend>
 			<form action="https://wayf.ukfederation.org.uk/DS001/uk0.ds" name="organisation-select-form" id="organisation-select-form" method="get">
 			<label class="hide" for="combobox">Find your organisation</label>
-			<input type="hidden" name="shire" value="https://sh2testsp1.iay.org.uk/Shibboleth.sso/SAML/POST" />
-			<input type="hidden" name="target" value="cookie:8b1caa20" />
-            <input type="hidden" name="providerId" value="https://sh2testsp1.iay.org.uk/shibboleth" />
-            <input type="hidden" name="time" value="1289839849" />
+<% if (!saml1Protocol) { %>
+			<input type="hidden" name="entityID" value="<%=entityId.toString()%>" />
+			<input type="hidden" name="returnX" value="<%=returnX.toString() %>" />
+                        <input type="hidden" name="returnIDParam" value="<%=returnIDParam.toString() %>" />
+<% } else { %>
+			<input type="hidden" name="shire" value="<%=shire.toString()%>" />
+			<input type="hidden" name="target" value="<%=target.toString() %>" />
+                        <input type="hidden" name="providerId" value="<%=providerId.toString() %>" />
+                        <input type="hidden" name="time" value="<%=time.toString() %>" />
+<% } %>
             <input type="hidden" name="action" value="selection" />
 			<div class="search">						
-			<select id="combobox" class="as-selections">
+			<select id="combobox" class="as-selections" name="origin">
 			<option value="">Select...</option>
 <% for (IdPSite site:sites) { %><option value="<%=site.getName()%>"><%=site.getDisplayName()%></option><%}%>
 
 					</select>
-				<input type="hidden" name="organisation-id" id="organisation-id" />
 				<button id="submit-btn" class="btn-enabled" name="submit-btn"  tabindex="4">Continue</button>				
 				</div>
 			</form>

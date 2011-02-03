@@ -24,7 +24,7 @@ if (typeof isPocket == "undefined"){
 	// demonstration function to retrieve document location (lat,long)
 	// assuming lat,long info available for each idp or idp region
 	// where the drop list items are sorted by locality to the user	
-	getLocation();
+        // getLocation();
 	
 	// ajust the display and styling for capable devices
 	// desktop version works without this call
@@ -66,6 +66,10 @@ if (typeof isPocket == "undefined"){
 				// record the hint	
 				createCookie("_saml_idp",$.base64Encode($("#combobox").val()),expires, "append")
 				
+                                var newURL = theURL + encodeURIComponent($("#combobox").val());
+				location.href=newURL;
+
+
 				//construct the URL to redirect
 				// eg:
 				// var entityURI = "";
@@ -73,11 +77,6 @@ if (typeof isPocket == "undefined"){
 				// location.href = entityURI
 
 			}
-				//simulate a submission for a search
-				// hide any previous
-				$(".as-results").hide();
-				//clear the results and load the new ones
-				$("#results").html($(".as-results ul li").clone(true)).before(function(){if ($("h1.results").length == 0) return"<h1 class=\"results\">Your search results</h1>"});
 				return false;
 			})
 		
@@ -144,7 +143,14 @@ function loadHints(){
 			var text = $("#combobox option[value='" +eId+ "']").text();
 			var hint = $("<li class='hint'><a class='hint-link' href=\"" +eId + "\">" + text +"</a></li>")
 			var remove = $("<span class='hide'> | </span><a href='#' title='remove this link' rel='" + eId + "' class='remove-org-btn' id=''>remove &times;</a>").click(function(){removeHint(this)})
-			var img = $(".hint-link", hint).append($("<img src='images/logos/glow.gif' width='90' alt='' title=''/>").error(function() {$(this).remove();}))
+                        var imgURL = theLogos[eId];
+                        if (null == imgURL) {
+                            //
+                            // This doesn't fire (imgURL must be something else) - but it actually doesn'ty look too bad like this
+                            //
+                            imgURL = 'images\idplogo.png';
+                        }
+                        var img = $(".hint-link", hint).append($("<img src='"+imgURL+"' width='90' alt='' title=''/>").error(function() {$(this).remove();}))
 				hint.append(img);
 				hint.append(remove);
 				$("#hints").append(hint);

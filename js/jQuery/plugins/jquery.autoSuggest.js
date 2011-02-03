@@ -18,7 +18,6 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  */
-debug=true;
 (function($){
 	$.fn.autoSuggest = function(data, options) {
 		var defaults = { 
@@ -324,9 +323,11 @@ debug=true;
 								formatted = opts.formatList.call(this, this_data, formatted);	
 							}
 							results_ul.append(
-							formatted.append($("<a href=\"#\" title=\"Sign in to " +data[num].name  +"\" class=\"shortcut\">Sign In</a>")
-								.click(function(){location.href=debug?"idp.html":raw_data.attributes.value.toString();return false;
-								})
+     formatted.append($("<a href='"+theURL + encodeURIComponent(this_data.value) + "' title=\"Sign in to " +data[num].name  +"\" class=\"shortcut\">Sign In</a>")
+              .click(function(){
+                      location.href=theURL + (raw_data.attributes.value.toString());
+                      return false;
+                  })
 							));
 							delete this_data;
 							matchCount++;
