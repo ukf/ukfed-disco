@@ -64,9 +64,7 @@ $(document).ready(function(){
                     if ($("#combobox").val() != ''){
                         // user has made a specific selection from the list
                         // record the hint      
-                        createCookie("_saml_idp",$.base64Encode($("#combobox").val()),expires, "append")
-                                
-                            var newURL = theURL + encodeURIComponent($("#combobox").val());
+                        var newURL = theURL + encodeURIComponent($("#combobox").val());
                         location.href=newURL;
 
 
@@ -88,32 +86,32 @@ $(document).ready(function(){
     })
 
 
-    function getLocation(){
-    if(navigator.geolocation){
-        browserSupportFlag = true;
-        navigator.geolocation.getCurrentPosition(showLocation, errorHandler);
-    } 
-}
-
-function showLocation(position){
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-    sortEntities(latitude,longitude)
-          
-        }
-function sortEntities(lat,lng){
-    // alert(lat +lng)
-    // sort the entities by lat long
-    // not implemented
-    // console.log("Latitude : " + latitude + " Longitude: " + longitude);
-}
-function errorHandler(err){
-    if(err.code == 1){
-        //console.log("Error: Access is denied!");
-    }else if( err.code == 2){
-        //console.log("Error: Position is unavailable!");
-    }
-}
+//function getLocation(){
+//    if(navigator.geolocation){
+//        browserSupportFlag = true;
+//        navigator.geolocation.getCurrentPosition(showLocation, errorHandler);
+//    } 
+//}
+//
+//function showLocation(position){
+//    var latitude = position.coords.latitude;
+//    var longitude = position.coords.longitude;
+//    sortEntities(latitude,longitude)
+//          
+//        }
+//function sortEntities(lat,lng){
+//    // alert(lat +lng)
+//    // sort the entities by lat long
+//    // not implemented
+//    // console.log("Latitude : " + latitude + " Longitude: " + longitude);
+//}
+//function errorHandler(err){
+//    if(err.code == 1){
+//        //console.log("Error: Access is denied!");
+//    }else if( err.code == 2){
+//        //console.log("Error: Position is unavailable!");
+//    }
+//}
         
 function removeHint(el){
         
@@ -121,10 +119,16 @@ function removeHint(el){
         if (stored != null){
             stored = stored.replace("null","");
             var delItem = $.base64Encode($(el).attr("rel"))
-            var value = (stored+= " ").replace(delItem,"").replace("null","");
-            createCookie("_saml_idp",value)
-                
-                
+            delItem = encodeURIComponent(delItem);
+            var value = stored.replace(delItem,"");
+            //
+            // and strip of any trailing '+'
+            //
+            var x = value.substring(value.length-1);
+            while (value.substring(value.length-1) == "+") {
+                value = value.substring(0,value.length-1);
+            }
+            writeCookie("_saml_idp",value)
         }
     $(el).parent("li").remove();
 }       
@@ -134,14 +138,14 @@ function loadHints(){
     var stored = readCookie("_saml_idp")
         if (stored != null ){
             stored = stored.replace("null","")
-            var hints = stored.split(" ");
+            var hints = stored.split("+");
             for(i=0;i<=hints.length-1;i++){
                 if (i <=2){
                     // decode a cookie string
-                    var eId = $.base64Decode(hints[i].toString())
+                    var eId = $.base64Decode(decodeURIComponent(hints[i]));
                         if (eId != ""){
                             var text = $("#combobox option[value='" +eId+ "']").text();
-                            var hint = $("<li class='hint'><a class='hint-link' href=\"" +eId + "\">" + text +"</a></li>")
+                            var hint = $("<li class='hint'><a class='hint-link' href=\"" + theURL + encodeURIComponent(eId) + "\">" + text +"</a></li>")
                             var remove = $("<span class='hide'> | </span><a href='#' title='remove this link' rel='" + eId + "' class='remove-org-btn' id=''>remove &times;</a>").click(function(){removeHint(this)})
                             var imgURL = theLogos[eId];
                             if (null == imgURL) {
@@ -162,32 +166,12 @@ function loadHints(){
 
 
 // write hints to a cookie
-// expiry and append options
-function createCookie(name, value, days,action) {
-    if (value==" "){ 
-        value = null
-            }
-    var current = readCookie(name)
-        if((typeof current != "undefined" )&&(action == "append")){
-            // check if the cookie already contains the value
-            if (current.match(value)== null){
-                value = (value + " "+ current )
-            }
-            else{value =  current}
-        }
 
-    if(days === null){
-        document.cookie = name + "=" + value + " ; path=/;"
-            }
-    else{
-        var date = new Date();
-        date.setDate(date.getDate()+ days);
-        document.cookie = name + "=" + value + "; path=/; " + "expires=" + date.toUTCString();
-   
-    }
-
+function writeCookie(name, value) {
+    var date = new Date();
+    date.setDate(date.getDate()+ 365);
+    document.cookie = name + "=" + value + "; path=/; " + "expires=" + date.toUTCString();
 }
-
 
 function readCookie(name) {
     var nameEQ = name + "=";

@@ -50,10 +50,10 @@
 
   } else { 
       saml1Protocol = (null == entityId);
-//      urlBuilder.append((String) request.getAttribute("requestURL"));
+      urlBuilder.append((String) request.getAttribute("requestURL"));
 
       if (!saml1Protocol) {
-          urlBuilder.append("WAYF?entityID=");
+          urlBuilder.append("?entityID=");
           urlBuilder.append(java.net.URLEncoder.encode(entityId, "utf-8"));
           urlBuilder.append("&returnX=");
           urlBuilder.append(java.net.URLEncoder.encode(returnX, "utf-8"));
@@ -80,7 +80,7 @@
          session.setAttribute("providerId", providerId);
          session.setAttribute("time", time);
       }
-      urlBuilder.append("&cache=Nperm&action=selection&origin=");
+      urlBuilder.append("&cache=perm&action=selection&origin=");
       session.setAttribute("returnURL", urlBuilder.toString());
       session.setAttribute("sites", sites);
       session.setAttribute("saml1Protocol", saml1Protocol);
