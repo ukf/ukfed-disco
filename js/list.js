@@ -20,7 +20,11 @@ if (typeof isPocket == "undefined"){
 			$(this).unbind("focus").removeClass("focus")
 		}); 
 	}
-
+	
+	// enable tooltips
+		$(".tooltip").toolTip({'title':"",'text':$("#intro").html()})
+		$(".tooltip").attr("tabindex","1")
+		
 	// demonstration function to retrieve document location (lat,long)
 	// assuming lat,long info available for each idp or idp region
 	// where the drop list items are sorted by locality to the user	
@@ -140,11 +144,12 @@ function createCookie(name, value, days,action) {
 		value = null
 	}
 	var current = readCookie(name)
-	if((current != undefined && current !="")&&(action == "append")){
+	if((typeof current != "undefined" )&&(action == "append")){
 		// check if the cookie already contains the value
 		if (current.match(value)== null){
 		value = (value + " "+ current )
 		}
+		else{value =  current}
 	}
 
 	if(days === null){
