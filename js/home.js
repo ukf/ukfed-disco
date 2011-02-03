@@ -141,7 +141,7 @@ function loadHints(){
 			// decode a cookie string
 			var eId = $.base64Decode(hints[i].toString())
 			if (eId != ""){
-			var text = $("#combobox option[value^='" +eId+ "']").text();
+			var text = $("#combobox option[value='" +eId+ "']").text();
 			var hint = $("<li class='hint'><a class='hint-link' href=\"" +eId + "\">" + text +"</a></li>")
 			var remove = $("<span class='hide'> | </span><a href='#' title='remove this link' rel='" + eId + "' class='remove-org-btn' id=''>remove &times;</a>").click(function(){removeHint(this)})
 			var img = $(".hint-link", hint).append($("<img src='images/logos/glow.gif' width='90' alt='' title=''/>").error(function() {$(this).remove();}))
@@ -162,11 +162,12 @@ function createCookie(name, value, days,action) {
 		value = null
 	}
 	var current = readCookie(name)
-	if((current != undefined && current !="")&&(action == "append")){
+	if((typeof current != "undefined" )&&(action == "append")){
 		// check if the cookie already contains the value
 		if (current.match(value)== null){
 		value = (value + " "+ current )
 		}
+		else{value =  current}
 	}
 
 	if(days === null){
