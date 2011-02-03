@@ -21,14 +21,10 @@ $(document).ready(function(){
                         }); 
         }
         
-        // enable tooltips
-        $(".tooltip").toolTip({'title':"",'text':$("#intro").html()})
-            $(".tooltip").attr("tabindex","1")
-                
-            // demonstration function to retrieve document location (lat,long)
-            // assuming lat,long info available for each idp or idp region
-            // where the drop list items are sorted by locality to the user     
-            getLocation();
+        // demonstration function to retrieve document location (lat,long)
+        // assuming lat,long info available for each idp or idp region
+        // where the drop list items are sorted by locality to the user     
+        //getLocation();
         
         // ajust the display and styling for capable devices
         // desktop version works without this call
@@ -38,9 +34,15 @@ $(document).ready(function(){
         // remove second option of choosing from a list- autosuggest disabled for smartphones
         if ((isIphone||isAndriod) &&(isPocket)){
             $(".subheading").html("Your organisation could be your School Network provider, College, University, Local authority or research Institution.<br/><br/>Choose your organisation and continue.")
-                $(".assist").after($(".assist a:eq(0)").addClass("help")).remove()
+                $(".assist").after($(".assist a:eq(0)").addClass("help")).remove();
 
-                }
+        }
+
+        if (!isPocket) {
+            // enable tooltips
+            $(".tooltip").toolTip({'title':"",'text':$("#intro").html()})
+                $(".tooltip").attr("tabindex","1");
+        }
 
         
         // form submission 
@@ -50,15 +52,11 @@ $(document).ready(function(){
                 if ($("#combobox").val() != ''){
                     // user has made a specific selection from the list
                     // record the hint  
-                    createCookie("_saml_idp",$.base64Encode($("#combobox").val()),expires, "append")
+                    createCookie("_saml_idp",$.base64Encode($("#combobox").val()),expires, "append");
+                    var newURL = theURL + encodeURIComponent($("#combobox").val());
+                    location.href=newURL;
                                 
-                        //construct the URL to redirect
-                        // eg:
-                        // var entityURI = "";
-                        // entityURI = $('#hid1').val() + $('#hid2').val() + $('#hid3').val() + $('#hid4').val() + $('#hid5').val(); location.href= entityURI;
-                        // location.href = entityURI
-
-                        }
+                }
                                 
                 return false;
             })
@@ -123,10 +121,17 @@ function loadHints(){
                     // decode a cookie string
                     var eId = $.base64Decode(hints[i].toString())
                         if (eId != ""){
-                            var text = $("#combobox option[value^='" +eId+ "']").text();
+                            var text = $("#combobox option[value='" +eId+ "']").text();
                             var hint = $("<li class='hint'><a class='hint-link' href=\"" +eId + "\">" + text +"</a></li>")
                             var remove = $("<span class='hide'> | </span><a href='#' title='remove this link' rel='" + eId + "' class='remove-org-btn' id=''>remove &times;</a>").click(function(){removeHint(this)})
-                            var img = $(".hint-link", hint).append($("<img src='images/logos/glow.gif' width='90' alt='' title=''/>").error(function() {$(this).remove();}))
+                            var imgURL = theLogos[eId];
+                            if (null == imgURL) {
+                                //
+                                // This doesn't fire (imgURL must be something else) - but it actually doesn'ty look too bad like this
+                                //
+                                imgURL = 'images\idplogo.png';
+                            }
+                            var img = $(".hint-link", hint).append($("<img src='"+imgURL+"' width='90' alt='' title=''/>").error(function() {$(this).remove();}));
                             hint.append(img);
                             hint.append(remove);
                             $("#hints").append(hint);
