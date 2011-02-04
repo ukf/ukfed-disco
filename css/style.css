@@ -74,6 +74,14 @@ legend{left:-999em;position:absolute;top:-999em;}
 	#results li.as-result-item em{color:#0E4699}
 	#results li a,#results li:hover a{display:none}
 	
+	#staticresults{margin-left:0;padding-left:55px;overflow:hidden;text-align:left}
+	#staticresults li{	background: #fff url(../images/arrow-right.gif) no-repeat  0 50%;padding:0 0 0 15px; list-style:none;border:none;width:auto;float:left;clear:both;}
+	#staticresults li.as-result-item{text-decoration:underline;color:#0E4699}
+	#staticresults li:hover{background:#fff;text-decoration:none;}
+	#staticresults li.as-result-item em{color:#0E4699}
+	#staticresults li a,#staticresults li:hover a{display:none}
+	#staticresults li a,#staticresults li:hover a.static{display:inline}
+	
 	#submit-btn{}
 		.btn-enabled{background:url(../images/search-btn.jpg) no-repeat;color:#444444;width:92px;height:34px;border:none;padding:1px  0px 5px;font-size:1em;font-weight:bold;cursor:pointer}
 		.btn-enabled:hover{background:url(../images/search-btn.jpg) no-repeat 0 49%;}

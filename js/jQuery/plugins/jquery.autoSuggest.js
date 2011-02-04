@@ -21,7 +21,7 @@
 (function($){
 	$.fn.autoSuggest = function(data, options) {
 		var defaults = { 
-			asHtmlID: false,
+			asHtmlID: "SearchInput",
 			startText: "Type the name of your organisation",
 			emptyText: "No Results Found",
 			preFill: {},

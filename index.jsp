@@ -13,6 +13,9 @@
 <%
    TreeSet<IdPSite> sites;
    StringBuilder urlBuilder = new StringBuilder();
+   
+   String NoResults = (String) request.getAttribute("searchResultsEmpty");
+   TreeSet<IdPSite> SResults = (TreeSet<IdPSite>) request.getAttribute("searchresults");
 
    String shire = (String) request.getAttribute("shire");
    String target = (String) request.getAttribute("target");
@@ -215,12 +218,24 @@ var theLogos=[];<%
 			<button id="submit-btn" class="btn-enabled" name="submit-btn"  tabindex="4">Continue</button>				
 				</div>
 			</form>
+
 			</fieldset>
-			
-			
 			<p class="assist"><a tabindex="5" href="help/index.html">Need help logging in?</a><br/>
 			<em>or</em> <a  tabindex="6" href="list/index.jsp">Let me choose from a list</a></p>
 						<ul id="results"><li class="hidden"></li></ul>
+
+<% if (null != NoResults) { %>
+  <h1 class="results">No results found</h1>
+<% } else if (null != (Object) SResults) {
+  String url = urlBuilder.toString(); %>
+  <h1 class="results">Your SearchResults</h1><ul id="staticresults">
+  <% for (IdPSite site:SResults) { %>
+    <li class="as-result-itm"><a class="static" href="<%=url+ java.net.URLEncoder.encode(site.getName(), "utf-8")%>"><%=site.getDisplayName()%></a></li>
+  <% } %></ul>
+<% } %>
+
+			
+
 			<p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
 
 		</div>

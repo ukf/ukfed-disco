@@ -60,22 +60,26 @@ $(document).ready(function(){
             // form submission 
             $("#submit-btn").click(function(e){
 
-                    var foo = $("#submit-btn");
-                    foo = foo.html;
-
                     if ($("#combobox").val() != ''){
-                        // user has made a specific selection from the list
-                        // record the hint      
+                        
                         var newURL = theURL + encodeURIComponent($("#combobox").val());
                         location.href=newURL;
-
-
-                        //construct the URL to redirect
-                        // eg:
-                        // var entityURI = "";
-                        // entityURI = $('#hid1').val() + $('#hid2').val() + $('#hid3').val() + $('#hid4').val() + $('#hid5').val(); location.href= entityURI;
-                        // location.href = entityURI
-
+                        //
+                        // and thats that
+                        //
+                    }
+                    var as = $("#SearchInput");
+                    if (as.val() != '') {
+                        //
+                        // convert the selection into a search
+                        //
+                        var newURL = theURL.replace("selection","search");
+                        newURL = newURL.replace("origin","string");
+                        //
+                        // and bung in the value
+                        //
+                        newURL = newURL + as.val();
+                        location.href=newURL;
                     }
                     return false;
                 })
