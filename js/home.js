@@ -67,19 +67,20 @@ $(document).ready(function(){
                         //
                         // and thats that
                         //
-                    }
-                    var as = $("#SearchInput");
-                    if (as.val() != '') {
-                        //
-                        // convert the selection into a search
-                        //
-                        var newURL = theURL.replace("selection","search");
-                        newURL = newURL.replace("origin","string");
-                        //
-                        // and bung in the value
-                        //
-                        newURL = newURL + as.val();
-                        location.href=newURL;
+                    } else {
+                        var as = $("#SearchInput");
+                        if (as.val() != '') {
+                            //
+                            // convert the selection into a search
+                            //
+                            var newURL = theURL.replace("selection","search");
+                            newURL = newURL.replace("origin","string");
+                            //
+                            // and bung in the value
+                            //
+                            newURL = newURL + as.val();
+                            location.href=newURL;
+                        }
                     }
                     return false;
                 })
