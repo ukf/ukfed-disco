@@ -60,6 +60,8 @@ $(document).ready(function(){
             // form submission 
             $("#submit-btn").click(function(e){
 
+                    var foo = $("#submit-btn");
+                    foo = foo.html;
 
                     if ($("#combobox").val() != ''){
                         // user has made a specific selection from the list
