@@ -32,7 +32,7 @@
 			<a href="../schools/" class="back" tabindex="2">Back to help logging in</a>
 			<h1 id="maincontent" title="maincontent">You've chosen the Cumbria and Lancashire region</h1>
                         <p>No Regions in your area have subscribed to this service</p>
-                        <p>Please ask a techer for help or log in to your School's Portal</p>
+                        <p>Please ask a teacher for help or log in to your School's Portal</p>
 <!--
 			<p>Find your organisation in the list below, and select it to log in.</p>
 			<p>If you're still having problems, ask your teacher or log into your school's portal.</p>	
