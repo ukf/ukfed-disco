@@ -18,7 +18,7 @@
 %>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<title>You've chosen the North West region</title>
+<title>You've chosen the South East region</title>
 <link type="text/css" href="../../css/style.css" rel="stylesheet" />
 
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;" />
@@ -31,7 +31,7 @@
 		<div id="region-list-view">
 						<a href="#maincontent" tabindex="1" class="hide" accesskey="S">Skip to content</a><span class="hide">|</span>
 			<a href="../schools/" class="back" tabindex="2">Back to help logging in</a>
-			<h1 id="maincontent" title="maincontent">You've chosen the North West region</h1>
+			<h1 id="maincontent" title="maincontent">You've chosen the South East region</h1>
 			<p>Find your organisation in the list below, and if possible select it to log in.</p>
 			<p>If you're still having problems, ask your teacher or log into your school's portal.</p>	
 			<ul class="rounded">
