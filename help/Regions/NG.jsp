@@ -13,12 +13,11 @@
    if (null == theURL) { %>
 <jsp:forward page = "noBookmark.html"/>
    <% }
-   String SWGFL = theURL + java.net.URLEncoder.encode("https://idp.merlin.swgfl.org.uk/shibboleth");
-   String Somerset = theURL + java.net.URLEncoder.encode("https://fronter.com/shibboleth/somerset/idp");
+   String Region = theURL + java.net.URLEncoder.encode("ENTITY_ID_FOR_REGION");
 %>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<title>You've chosen the South West region</title>
+<title>You've chosen the North East region</title>
 <link type="text/css" href="../../css/style.css" rel="stylesheet" />
 
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;" />
@@ -31,33 +30,24 @@
 		<div id="region-list-view">
 						<a href="#maincontent" tabindex="1" class="hide" accesskey="S">Skip to content</a><span class="hide">|</span>
 			<a href="../schools/" class="back" tabindex="2">Back to help logging in</a>
-			<h1 id="maincontent" title="maincontent">You've chosen the South West region</h1>
+			<h1 id="maincontent" title="maincontent">You've chosen the North East region</h1>
+                        <p>No Regions in your area have subscribed to this service</p>
+                        <p>Please ask a teacher for help or log in to your School's Portal</p>
+<!--
 			<p>Find your organisation in the list below, and select it to log in.</p>
 			<p>If you're still having problems, ask your teacher or log into your school's portal.</p>	
 			<ul class="rounded">
-				<li><a href='<%=SWGFL%>'>SWGfL Merlin</a></li>
-				<li><a href='<%=SWGFL%>'>Bath and NE Somerset</a></li>
-				<li><a href='<%=SWGFL%>'>Bournemouth</a></li>
-				<li><a href='<%=SWGFL%>'>Bristol</a></li>
-				<li><a href='<%=SWGFL%>'>Cornwall</a></li>
-				<li><a href='<%=SWGFL%>'>Devon</a></li>
-				<li><a href='<%=SWGFL%>'>Dorset</a></li>
-				<li><a href='<%=SWGFL%>'>Gloucestershire</a></li>
-				<li><a href='<%=SWGFL%>'>Isles of Scilly</a></li>
-				<li><a href='<%=SWGFL%>'>North Somerset</a></li>
-				<li><a href='<%=SWGFL%>'>Plymouth</a></li>
-				<li><a href='<%=SWGFL%>'>Poole</a></li>
-				<li><a href='<%=Somerset%>'>Somerset</a></li>
-				<li><a href='<%=SWGFL%>'>South Gloucestershire</a></li>
-				<li><a href='<%=SWGFL%>'>Swindon</a></li>
-				<li><a href='<%=SWGFL%>'>Torbay</a></li>
-				<li><a href='<%=SWGFL%>'>Wiltshire</a></li>
-				<li><a href='<%=SWGFL%>'><img src="../../images/logos/SWGfL.jpg" alt="SWGfL Merlin" /></li></a>
-			</ul>		
+				<li><a href='<%=Region%>'>Darlington</a></li>
+				<li><a href='<%=Region%>'>Hartlepool</a></li>
+				<li><a href='<%=Region%>'>Middlesbrough</a></li>
+				<li><a href='<%=Region%>'>North Tyneside</a></li>
+				<li><a href='<%=Region%>'>Redcar & Cleveland</a></li>
+				<li><a href='<%=Region%>'>South Tyneside</a></li>
+				<li><a href='<%=Region%>'>Stockton-on-Tees</a></li>
+			</ul>
+-->
 		</div><p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
 		
 	</div>
-	
-
 </body>
 </html>
