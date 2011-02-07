@@ -52,6 +52,7 @@
                                 <li><a href='<%=BracknellForest%>'>West Sussex.</a></li>
                                 <li><a href='<%=BracknellForest%>'>Windsor & Maidenhead.</a></li>
                                 <li><a href='<%=BracknellForest%>'>Wokingham.</a></li>
+				<li><a href='<%=BracknellForest%>'><img src="../../images/logos/segfl.gif" alt="SEGFL" /></li></a>
 			</ul>		
 		</div><p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
 		
