@@ -36,22 +36,22 @@
 			<p>If you're still having problems, ask your teacher or log into your school's portal.</p>	
 			<ul class="rounded">
 				<li><a href='<%=BracknellForest%>'>Bracknell Forest</a></li>
-                                <li>Brighton & Hove   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-                                <li>Buckinghamshire   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-                                <li>East Sussex   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-                                <li>Hampshire   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-                                <li>Isle of Wight   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-				<li><a href='<%=Kent%>'>Kent</a></li>
-                                <li>Medway   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-                                <li>Portsmouth   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-                                <li>Reading   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-                                <li>Slough   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-                                <li>Southampton   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-                                <li>Surrey   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-                                <li>West Berkshire   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-                                <li>West Sussex   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-                                <li>Windsor & Maidenhead   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
-                                <li>Wokingham   - This local authority has not subscribed to this service, please ask your teacher or log into your school's portal.</li>
+                                <li><a href='<%=BracknellForest%>'>Brighton & Hove.</a></li>
+                                <li><a href='<%=BracknellForest%>'>Buckinghamshire.</a></li>
+                                <li><a href='<%=BracknellForest%>'>East Sussex.</a></li>
+                                <li><a href='<%=BracknellForest%>'>Hampshire.</a></li>
+                                <li><a href='<%=BracknellForest%>'>Isle of Wight.</a></li>
+				<li><a href='<%=Kent%>'>Kent</a></a></li>
+                                <li><a href='<%=BracknellForest%>'>Medway.</a></li>
+                                <li><a href='<%=BracknellForest%>'>Portsmouth.</a></li>
+                                <li><a href='<%=BracknellForest%>'>Reading.</a></li>
+                                <li><a href='<%=BracknellForest%>'>Slough.</a></li>
+                                <li><a href='<%=BracknellForest%>'>Southampton.</a></li>
+                                <li><a href='<%=BracknellForest%>'>Surrey.</a></li>
+                                <li><a href='<%=BracknellForest%>'>West Berkshire.</a></li>
+                                <li><a href='<%=BracknellForest%>'>West Sussex.</a></li>
+                                <li><a href='<%=BracknellForest%>'>Windsor & Maidenhead.</a></li>
+                                <li><a href='<%=BracknellForest%>'>Wokingham.</a></li>
 			</ul>		
 		</div><p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
 		
