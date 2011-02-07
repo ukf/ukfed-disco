@@ -16,7 +16,7 @@
    <% }
    String Scotland =  theURL + java.net.URLEncoder.encode("https://idp.glowscotland.org.uk/shibboleth");
    String NI = theURL + java.net.URLEncoder.encode("https://school.c2kni.net/shibboleth");
-   String EMBC = theURL + java.net.URLEncoder.encode("https://embc.uk.com/shibboleth");
+   String EMBC = "../Regions/EMBC.jsp";
    String E2BN = theURL + java.net.URLEncoder.encode("https://idp1.e2bn.org/idp/shibboleth");
 %>
 <head>
