@@ -125,7 +125,7 @@
                             <a href="<%=Scotland%>">Scotland</a>
                         </td>
                         <td class="col-2">
-                            <span class="hide">:</span><a href="<%=Scotland%>"><acronym title="The National Intranet for Scotting Schools">Glow</acronym></a><p>The National Intranet for Scotting Schools</p>
+                            <span class="hide">:</span><a href="<%=Scotland%>"><acronym title="The National Intranet for Scottish Schools">Glow</acronym></a><p>The National Intranet for Scottish Schools</p>
                         </td>
                         <td class="col-3">
                             <img src="../../images/icons/glow_small.jpg" alt="The National Intranet for Scotting Schools (glow)" />
