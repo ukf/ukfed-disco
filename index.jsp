@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=UTF-8" %> 
-<%@ page language="java" import="java.util.*,edu.internet2.middleware.shibboleth.wayf.*,java.lang.*,org.opensaml.xml.*, edu.internet2.middleware.shibboleth.wayf.idpdisco.*,javax.servlet.http.*"%>
+<%@ page language="java" import="java.util.*,edu.internet2.middleware.shibboleth.wayf.*,java.lang.*,org.opensaml.xml.*, org.opensaml.saml2.metadata.*,edu.internet2.middleware.shibboleth.wayf.idpdisco.*,javax.servlet.http.*, java.net.*"%>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
 <%@ taglib uri="/WEB-INF/tlds/struts-logic.tld" prefix="logic" %>
@@ -17,10 +17,13 @@
    String NoResults = (String) request.getAttribute("searchResultsEmpty");
    TreeSet<IdPSite> SResults = (TreeSet<IdPSite>) request.getAttribute("searchresults");
 
+
    String shire = (String) request.getAttribute("shire");
    String target = (String) request.getAttribute("target");
    String providerId = (String) request.getAttribute("providerId");
    String time = (String) request.getAttribute("time");
+
+   EntityDescriptor sp = (EntityDescriptor) request.getAttribute("providerObject");
    
    String entityId = (String) request.getAttribute("entityID");
    String returnX = (String) request.getAttribute("returnX");
@@ -50,7 +53,7 @@
          returnX = (String) session.getAttribute("returnX");
          returnIDParam = (String) session.getAttribute("returnIDParam");
       }
-
+      sp = (EntityDescriptor) session.getAttribute("providerObject");
   } else { 
       saml1Protocol = (null == entityId);
       urlBuilder.append((String) request.getAttribute("requestURL"));
@@ -87,8 +90,53 @@
       session.setAttribute("returnURL", urlBuilder.toString());
       session.setAttribute("sites", sites);
       session.setAttribute("saml1Protocol", saml1Protocol);
+      session.setAttribute("providerObject", sp);
       session.setMaxInactiveInterval(-1);
   }
+
+  //
+  // SP logo and test
+  //
+  String spName = null;
+  String spLogo = null;
+
+  List<RoleDescriptor> roles = sp.getRoleDescriptors();
+  for (RoleDescriptor r:roles) {
+    List<XMLObject> splist = r.getExtensions().getOrderedChildren();
+    for (XMLObject o:splist) { 
+      if (o instanceof UIInfo) { 
+        UIInfo info=null;
+        info = (UIInfo) o;
+        if (info.getLogos() != null) {
+          for (Logo logo : info.getLogos()) { 
+            if (logo.getHeight() <= 16 && logo.getWidth() <= 16) continue;
+            if (null == spLogo) spLogo = logo.getURL().getLocalString();
+            break;
+          }
+          for (DisplayName dn : info.getDisplayNames()) { 
+            if (null == spName) spName = dn.getName().getLocalString();
+            break;
+          }
+        }
+      }
+    }
+  }
+  if (spName == null) {
+    try {
+      URI uriId = new URI(sp.getEntityID());
+      String scheme = uriId.getScheme();
+
+      if ("http".equals(scheme) || "https".equals(scheme)) {
+        spName = uriId.getHost(); 
+      }
+      } catch (URISyntaxException e) {
+        // 
+        // It wasn't an URI.  return full entityId.
+        //
+        spName = sp.getEntityID();
+      }
+   }
+
 
   %>
 <head>
@@ -178,7 +226,13 @@ var theLogos=[];<%
 		<div id="organisation-select-view">
 			<a href="#maincontent" class="hide" tabindex="1" accesskey="S">Skip to content</a>
 
-			<div id="co-branding"><!--<img src="pathtopartnerlogo/0.jpg" alt="Co-branding logo"/>--></div>
+			<div id="co-branding">
+                           <% if (spLogo != null) { %>
+                               <div>
+                               <img src="<%=spLogo%>" alt="<%=spName%>"/></div>
+                           <% } %>
+                           Logging on to <%=spName%>
+                        </div>
 			<h1>Which organisation would you like to sign in with?</h1>
 			<span id="maincontent"></span>
 			<div class="hide" id="intro">
