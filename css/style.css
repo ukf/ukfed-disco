@@ -45,6 +45,7 @@ legend{left:-999em;position:absolute;top:-999em;}
 .portable #organisation-select-view{width:auto !important}
 	#organisation-select-view h2{margin:}
 	#co-branding{text-align:center}
+	#co-branding-text{padding:1em}
 	h1{font-size:1.8em;color:#666666;font-weight:normal;text-align:left;clear:both;}
 	.subheading{margin:24px 0 27px 0;font-size:1em;}
 	#organisation-select-view h1,#organisation-select-view.subheading{text-align:center;}

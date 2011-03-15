@@ -228,10 +228,11 @@ var theLogos=[];<%
 
 			<div id="co-branding">
                            <% if (spLogo != null) { %>
-                               <div>
-                               <img src="<%=spLogo%>" alt="<%=spName%>"/></div>
+                               <div id="co-branding-img">
+                                 <img src="<%=spLogo%>" alt="<%=spName%>"/>
+                               </div>
                            <% } %>
-                           Logging on to <%=spName%>
+                           <div id="co-branding-text"><%=spName%></div>
                         </div>
 			<h1>Which organisation would you like to sign in with?</h1>
 			<span id="maincontent"></span>
