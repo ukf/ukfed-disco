@@ -1,0 +1,54 @@
+<WayfConfig 
+        xmlns="urn:mace:shibboleth:wayf:config:1.0" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+        <Default 
+            handleCookie="NeverFollow"
+            jspFile="/index.jsp"
+            errorJspFile="/wayferror.jsp"
+            provideList="true"
+            provideListOfList="false"
+            showUnusableIdPs="true">
+            <SearchIgnore>
+                <IgnoreText>Institution</IgnoreText>
+                <IgnoreText>University</IgnoreText>
+                <IgnoreText>State </IgnoreText>
+                <IgnoreText>School</IgnoreText>
+            </SearchIgnore>
+        </Default>
+
+    <MetadataProvider 
+
+        displayName="UK federation (unfiltered)"
+        identifier="UK-all"
+        type="edu.internet2.middleware.shibboleth.metadata.provider.XMLMetadata"
+	url="file:///My Downloads/shib/ukfederation-test.xml"/> 
+
+     <Plugin
+        identifier="CookiePlugin"
+        type="edu.internet2.middleware.shibboleth.wayf.plugins.provider.SamlCookiePlugin"
+        alwaysFollow = "FALSE"
+        deleteCookie = "FALSE"
+        cacheExpiration="16070400"
+
+	/> 
+
+    <DiscoveryServiceHandler
+        location=".+/WAYF"
+        provideList="true"
+        provideListOfList="false"
+        default="true">
+        <Federation identifier="UK-all"/>
+        <PluginInstance identifier="CookiePlugin"/>
+    </DiscoveryServiceHandler>
+
+    <DiscoveryServiceHandler
+        location=".+/DS"
+        provideList="true"
+        provideListOfList="false"
+        default="true">
+        <Federation identifier="UK-all"/>
+        <PluginInstance identifier="CookiePlugin"/>
+    </DiscoveryServiceHandler>
+
+</WayfConfig>
