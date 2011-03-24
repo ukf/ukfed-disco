@@ -12,7 +12,7 @@
 <%
    String theURL = (String) session.getAttribute("returnURL");
    if (null == theURL) { %>
-<jsp:forward page = "noBookmark.html"/>
+<jsp:forward page = "../../noBookmark.html"/>
    <% }
    String Scotland =  theURL + java.net.URLEncoder.encode("https://idp.glowscotland.org.uk/shibboleth");
    String NI = theURL + java.net.URLEncoder.encode("https://school.c2kni.net/shibboleth");
