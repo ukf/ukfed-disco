@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+	<servlet>
+		<servlet-name>WAYF</servlet-name>
+		<display-name>Shibboleth WAYF Service</display-name>
+		<servlet-class>edu.internet2.middleware.shibboleth.wayf.WayfService</servlet-class>
+		<init-param>
+			<param-name>WAYFConfigFileLocation</param-name>
+			<param-value>$DS_HOME$/conf/wayfconfig.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>WAYFLogConfig</param-name>
+			<param-value>$DS_HOME$/conf/logging.xml</param-value>
+        <init-param>
+            <param-name>loadMetadataExts</param-name>
+            <param-value>true</param-value>
+        </init-param>
+		</init-param>
+        <init-param>
+            <param-name>WAYFLogConfigPollFrequency</param-name>
+            <param-value>300000</param-value>
+        </init-param>
+	</servlet>
+
+<!-- We specify two mappings - old style http:/host/shibboleth-wayf/WAYF/ and the new style
+     whereby the precise name influences the behavior.  See the configuration file for 
+     examples -->
+
+	<servlet-mapping>
+		<servlet-name>WAYF</servlet-name>
+		<url-pattern>/WAYF</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>WAYF</servlet-name>
+		<url-pattern>*.wayf</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>WAYF</servlet-name>
+		<url-pattern>/DS</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>WAYF</servlet-name>
+		<url-pattern>*.ds</url-pattern>
+	</servlet-mapping>
+
+	<mime-mapping>
+		<extension>css</extension>
+		<mime-type>text/css</mime-type>
+	</mime-mapping>
+</web-app>
