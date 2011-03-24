@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=UTF-8" %> 
-<%@ page language="java" import="java.util.*,edu.internet2.middleware.shibboleth.wayf.*,java.lang.*,org.opensaml.xml.*, edu.internet2.middleware.shibboleth.wayf.idpdisco.*,javax.servlet.http.*"%>
+<%@ page language="java" import="java.util.*,edu.internet2.middleware.shibboleth.wayf.*,java.lang.*,org.opensaml.xml.*, org.opensaml.saml2.metadata.*,edu.internet2.middleware.shibboleth.wayf.idpdisco.*,javax.servlet.http.*, java.net.*"%>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <%request.setCharacterEncoding("UTF-8");%>
 <%response.setCharacterEncoding("UTF-8");%>
@@ -18,7 +18,7 @@
    String entityId = "entityID";
    String returnX = "returnX";
    String returnIDParam = "returnIdParam";
-
+   EntityDescriptor sp;
    Boolean saml1Protocol; saml1Protocol = (Boolean) session.getAttribute("saml1Protocol");
 
    if (null == saml1Protocol) { %>
@@ -36,7 +36,55 @@
       returnX = (String) session.getAttribute("returnX");
       returnIDParam = (String) session.getAttribute("returnIDParam");
    }
-   %>
+   sp = (EntityDescriptor) session.getAttribute("providerObject");
+
+  //
+  // SP logo and text
+  //
+  String spName = null;
+  String spLogo = null;
+
+  if (null != sp) {
+    List<RoleDescriptor> roles = sp.getRoleDescriptors();
+    for (RoleDescriptor r:roles) {
+      List<XMLObject> splist = r.getExtensions().getOrderedChildren();
+      for (XMLObject o:splist) { 
+        if (o instanceof UIInfo) { 
+          UIInfo info=null;
+          info = (UIInfo) o;
+          if (info.getLogos() != null) {
+            for (Logo logo : info.getLogos()) { 
+              if (logo.getHeight() <= 16 && logo.getWidth() <= 16) continue;
+              if (null == spLogo) spLogo = logo.getURL().getLocalString();
+              break;
+            }
+            for (DisplayName dn : info.getDisplayNames()) { 
+              if (null == spName) spName = dn.getName().getLocalString();
+              break;
+            }
+          }
+        }
+      }
+    }
+    if (spName == null) {
+      try {
+        URI uriId = new URI(sp.getEntityID());
+        String scheme = uriId.getScheme();
+  
+        if ("http".equals(scheme) || "https".equals(scheme)) {
+          spName = uriId.getHost(); 
+        }
+      } catch (URISyntaxException e) {
+        // 
+        // It wasn't an URI.  return full entityId.
+        //
+        spName = sp.getEntityID();
+      }
+    }
+  } else {
+      spName = "Unknown Service Provider";
+  } 
+  %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Select from the list: Which organisation would you like to sign in with?</title>
@@ -120,7 +168,14 @@ var theLogos=[];<%
 <body >
 	<div class="content">
 		<div id="organisation-select-view">
-			<div id="co-branding"></div>
+			<div id="co-branding">
+                           <% if (spLogo != null) { %>
+                               <div id="co-branding-img">
+                                 <img src="<%=spLogo%>" alt="<%=spName%>"/>
+                               </div>
+                           <% } %>
+                           <div id="co-branding-text"><%=spName%></div>
+                        </div>
 			<h1>Which organisation would you like to sign in with?</h1>
 			<div style="display:none;" id="intro">
 				<h2>The content you clicked on needs you to log into your organisation</h2>
