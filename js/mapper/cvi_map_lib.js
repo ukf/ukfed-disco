@@ -281,8 +281,8 @@ var cvi_map = {
 				image.style.cssText = '';
 				image.left = 0; image.top = 0;
 				image.style.position = 'absolute';
-				image.style.height = image.height+'px';
-				image.style.width = image.width+'px';
+				//image.style.height = image.height+'px';
+				//image.style.width = image.width+'px';
 				image.style.left = 0+'px';
 				image.style.top = 0+'px';
 				image.style.MozUserSelect = "none";
