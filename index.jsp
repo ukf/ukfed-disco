@@ -95,48 +95,51 @@
   }
 
   //
-  // SP logo and test
+  // SP logo and text
   //
   String spName = null;
   String spLogo = null;
 
-  List<RoleDescriptor> roles = sp.getRoleDescriptors();
-  for (RoleDescriptor r:roles) {
-    List<XMLObject> splist = r.getExtensions().getOrderedChildren();
-    for (XMLObject o:splist) { 
-      if (o instanceof UIInfo) { 
-        UIInfo info=null;
-        info = (UIInfo) o;
-        if (info.getLogos() != null) {
-          for (Logo logo : info.getLogos()) { 
-            if (logo.getHeight() <= 16 && logo.getWidth() <= 16) continue;
-            if (null == spLogo) spLogo = logo.getURL().getLocalString();
-            break;
-          }
-          for (DisplayName dn : info.getDisplayNames()) { 
-            if (null == spName) spName = dn.getName().getLocalString();
-            break;
+  if (null != sp) {
+    List<RoleDescriptor> roles = sp.getRoleDescriptors();
+    for (RoleDescriptor r:roles) {
+      List<XMLObject> splist = r.getExtensions().getOrderedChildren();
+      for (XMLObject o:splist) { 
+        if (o instanceof UIInfo) { 
+          UIInfo info=null;
+          info = (UIInfo) o;
+          if (info.getLogos() != null) {
+            for (Logo logo : info.getLogos()) { 
+              if (logo.getHeight() <= 16 && logo.getWidth() <= 16) continue;
+              if (null == spLogo) spLogo = logo.getURL().getLocalString();
+              break;
+            }
+            for (DisplayName dn : info.getDisplayNames()) { 
+              if (null == spName) spName = dn.getName().getLocalString();
+              break;
+            }
           }
         }
       }
     }
-  }
-  if (spName == null) {
-    try {
-      URI uriId = new URI(sp.getEntityID());
-      String scheme = uriId.getScheme();
-
-      if ("http".equals(scheme) || "https".equals(scheme)) {
-        spName = uriId.getHost(); 
-      }
+    if (spName == null) {
+      try {
+        URI uriId = new URI(sp.getEntityID());
+        String scheme = uriId.getScheme();
+  
+        if ("http".equals(scheme) || "https".equals(scheme)) {
+          spName = uriId.getHost(); 
+        }
       } catch (URISyntaxException e) {
         // 
         // It wasn't an URI.  return full entityId.
         //
         spName = sp.getEntityID();
       }
-   }
-
+    }
+  } else {
+      spName = "Unknown Service Provider";
+  } 
 
   %>
 <head>
