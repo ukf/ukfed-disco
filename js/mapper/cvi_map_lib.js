@@ -34,6 +34,11 @@ var isI8 = isIE&&document.documentMode?1:0;
 var isVM = isIE&&document.namespaces?1:0; 
 var isCV = canvascheck.getContext?1:0;
 var isJG = 0, jg = new Array();
+console.log(isIE);
+console.log(isI8);
+console.log(isVM);
+console.log(isCV);
+console.log(isJG);
 
 function showCoords(map,ele,x,y,w,h) {}
 
@@ -226,6 +231,7 @@ var cvi_map = {
 	defaultMapid : '',
 	defaultDelayed : false,
 	add: function(image, options) {
+		console.log("add");
 		var map, mapname = image.useMap.split("#");
 		if(mapname[1]!=''&&mapname[1].length>=1) {map = document.getElementsByName(mapname[1])[0];}
 		if(image.tagName.toUpperCase() == "IMG" && map) {
@@ -281,8 +287,8 @@ var cvi_map = {
 				image.style.cssText = '';
 				image.left = 0; image.top = 0;
 				image.style.position = 'absolute';
-				image.style.height = image.height+'px';
-				image.style.width = image.width+'px';
+				//image.style.height = image.height+'px';
+				//image.style.width = image.width+'px';
 				image.style.left = 0+'px';
 				image.style.top = 0+'px';
 				image.style.MozUserSelect = "none";
@@ -325,6 +331,7 @@ var cvi_map = {
 	},
 
 	modify: function(image, options) {
+		console.log("modify");
 		try {		
 			var radius = (typeof options['radius']=='number'?options['radius']:image.options['radius']); image.options['radius']=radius;
 			var opacity = (typeof options['opacity']=='number'?options['opacity']:image.options['opacity']); image.options['opacity']=opacity;
@@ -457,6 +464,7 @@ var cvi_map = {
 	},
 
 	remove : function(image) {
+		console.log("remove");
 		var ele, object = image.parentNode;
 		if(image.active) {
 			if(isIE) { image.style.filter = "Alpha(opacity=100)";}else {image.style.opacity = 100; image.style.MozOpacity = 100; image.style.KhtmlOpacity = 100;}
