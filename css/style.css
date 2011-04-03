@@ -95,6 +95,9 @@ legend{left:-999em;position:absolute;top:-999em;}
 #help-view{}
 img#map_tight{}
 
+#help-others-view div{margin-left:30px;}
+
+#help-view .back, #help-view  #maincontent, #help-view  .subheading, {margin-left:30px;}
 	#help-view #map{width:463px;float:left;overflow:hidden;background:url(../images/map/map_tight.jpg) no-repeat ;outline:none;}
 	/* Table styles */
 	#help-view #regions-table{width:505px;margin:8px 0 0 12px;float:left;}
