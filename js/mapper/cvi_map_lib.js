@@ -35,6 +35,7 @@ var isVM = isIE&&document.namespaces?1:0;
 var isCV = canvascheck.getContext?1:0;
 var isJG = 0, jg = new Array();
 
+
 function showCoords(map,ele,x,y,w,h) {}
 
 function getClassValue(classes,string){
@@ -90,6 +91,7 @@ function fadeCanvas(id,opac) {
 function setAreaOver(obj,id,bd,co,op,nb,f,z) {
 	var a, i, j, d, c, o, b, n, l, r, v, u, x, y, p, context, k = 0, t = '', r = obj.getAttribute('rel'), canvas = document.getElementById(id);
 	if(r!=null) {d = r.split(","); v = d.unshift(obj.id); }else {d = new Array(obj.id); }
+	
 	function setAttr() {
 		if(l.indexOf('forcegroup')!=-1) {k = getClassAttribute(u,"forcegroup");}else {k=0;}
 		if(l.indexOf('iopacity')!=-1) {o = getClassValue(u,"iopacity")/100;}else {o=op;}	
@@ -281,6 +283,7 @@ var cvi_map = {
 				image.style.cssText = '';
 				image.left = 0; image.top = 0;
 				image.style.position = 'absolute';
+				// DSJ EDIT
 				//image.style.height = image.height+'px';
 				//image.style.width = image.width+'px';
 				image.style.left = 0+'px';
@@ -358,6 +361,7 @@ var cvi_map = {
 				if(!delayed) {replace();}
 				for(var j=0;j<map.areas.length;j++) {
 					if(map.areas[j].shape.match(/(rect|poly|circle)/i)) {
+						
 						if(window.opera||map.areas[j].coords!='') {
 							if(map.areas[j].id=='') {map.areas[j].id = image.mapname+'_'+j;}
 							if(isVM||isIE) {
@@ -408,6 +412,7 @@ var cvi_map = {
 				}
 				if(delayed) {replace();	}
 				if(isCV) {
+					
 					if(imgsrc!='') {
 						var img = new Image();
 						img.onload = function() {
@@ -425,9 +430,12 @@ var cvi_map = {
 							prepare();
 						}
 						img.src = imgsrc;
+						
 					}else {	
+						
 						context = bgrnd.getContext("2d");
 						context.clearRect(0,0,bgrnd.width,bgrnd.height);
+						
 						context.save();
 						if(radius>0) {
 							roundedRect(context,0,0,bgrnd.width,bgrnd.height,radius);
@@ -435,13 +443,15 @@ var cvi_map = {
 						}
 						context.fillStyle = 'rgba(0,0,0,0)';
 						context.fillRect(0,0,bgrnd.width,bgrnd.height);
-						context.drawImage(image,0,0,bgrnd.width,bgrnd.height);
+						/// DSJ EDIT
+						//context.drawImage(image,0,0,bgrnd.width,bgrnd.height);
 						context.restore();
 						prepare();
 					}
 				}else if(isVM) {
 					if(radius>0) {radius = getRadius(radius,bgrnd.width,bgrnd.height);}	
 					bgrnd.innerHTML = '<v:roundrect arcsize="'+radius+'" strokeweight="0" filled="t" stroked="f" fillcolor="#ffffff" style="zoom:1;margin:0;padding:0;display:block;position:absolute;left:0px;top:0px;width:'+bgrnd.width+'px;height:'+bgrnd.height+'px;"><v:fill src="'+(imgsrc!=''?imgsrc:image.src)+'" type="frame" /></v:roundrect>';
+					
 					prepare();
 				}else {
 					bgrnd.src = imgsrc!=''?imgsrc:image.src;
@@ -457,6 +467,7 @@ var cvi_map = {
 	},
 
 	remove : function(image) {
+		
 		var ele, object = image.parentNode;
 		if(image.active) {
 			if(isIE) { image.style.filter = "Alpha(opacity=100)";}else {image.style.opacity = 100; image.style.MozOpacity = 100; image.style.KhtmlOpacity = 100;}
