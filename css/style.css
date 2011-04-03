@@ -101,12 +101,9 @@ legend{left:-999em;position:absolute;top:-999em;}
 	.ui-autocomplete a.ui-state-hover{background:none !important;border:none !important}
 	*/
 	
-#help-view{}
+#help-view {margin-left:30px;}
 img#map_tight{}
 
-#help-others-view div{margin-left:30px;}
-
-#help-view .back, #help-view  #maincontent, #help-view  .subheading, {margin-left:30px;}
 	#help-view #map{width:463px;float:left;overflow:hidden;background:url(../images/map/map_tight.jpg) no-repeat ;outline:none;}
 	/* Table styles */
 	#help-view #regions-table{width:505px;margin:8px 0 0 12px;float:left;}
@@ -142,8 +139,9 @@ img#map_tight{}
 	#help-view #regions-table td.NorthernIreland {background:#C19DC1;}
 	#help-view #regions-table td.CumbriaandLancashire{background:#C6BE75;}
 
-	
-	#help-others-view{}
+	#help-top-view {margin-left:30px;}
+
+	#help-others-view {margin-left:30px;}
 	#help-others-view h1{}
 	#help-others-view dt{margin:15px 0 0;background:url(../images/arrow-right.gif) no-repeat  0 50%;padding:0 0 0 15px;}
 	#help-others-view dt.open{background:url(../images/arrow-down.gif) no-repeat  0 50%;padding:0 0 0 15px;}
