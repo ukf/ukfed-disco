@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=UTF-8" %> 
-<%@ page language="java" import="java.util.*,edu.internet2.middleware.shibboleth.wayf.*,java.lang.*,org.opensaml.xml.*, org.opensaml.saml2.metadata.*,edu.internet2.middleware.shibboleth.wayf.idpdisco.*,javax.servlet.http.*, java.net.*"%>
+<%@ page language="java" import="java.util.*,edu.internet2.middleware.shibboleth.wayf.*,java.lang.*,org.opensaml.xml.*, org.opensaml.saml2.common.*, org.opensaml.saml2.metadata.*,edu.internet2.middleware.shibboleth.wayf.idpdisco.*,javax.servlet.http.*, java.net.*"%>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
 <%@ taglib uri="/WEB-INF/tlds/struts-logic.tld" prefix="logic" %>
@@ -103,7 +103,11 @@
   if (null != sp) {
     List<RoleDescriptor> roles = sp.getRoleDescriptors();
     for (RoleDescriptor r:roles) {
-      List<XMLObject> splist = r.getExtensions().getOrderedChildren();
+      Extensions ex = r.getExtensions();
+      if (null == ex) { 
+	  continue;
+      }
+      List<XMLObject> splist = ex.getOrderedChildren();
       for (XMLObject o:splist) { 
         if (o instanceof UIInfo) { 
           UIInfo info=null;
@@ -129,6 +133,8 @@
   
         if ("http".equals(scheme) || "https".equals(scheme)) {
           spName = uriId.getHost(); 
+        } else {
+          spName = sp.getEntityID();
         }
       } catch (URISyntaxException e) {
         // 
