@@ -12,17 +12,22 @@
             <SearchIgnore>
                 <IgnoreText>Institution</IgnoreText>
                 <IgnoreText>University</IgnoreText>
-                <IgnoreText>State </IgnoreText>
                 <IgnoreText>School</IgnoreText>
             </SearchIgnore>
         </Default>
-
+        
     <MetadataProvider 
-
         displayName="UK federation (unfiltered)"
         identifier="UK-all"
         type="edu.internet2.middleware.shibboleth.metadata.provider.XMLMetadata"
-	url="file:///My Downloads/shib/ukfederation-test.xml"/> 
+	url="file:///Program Files/Internet2/IdP/etc/UkMetadata-test.xml"/>
+
+    <MetadataProvider 
+        displayName="UK federation (unfiltered)"
+        identifier="UK"
+        type="edu.internet2.middleware.shibboleth.metadata.provider.XMLMetadata"
+	url="file:///Program Files/Internet2/IdP/etc/UkMetadata-wayf.xml"/>
+
 
      <Plugin
         identifier="CookiePlugin"
@@ -38,7 +43,7 @@
         provideList="true"
         provideListOfList="false"
         default="true">
-        <Federation identifier="UK-all"/>
+        <Federation identifier="UK"/>
         <PluginInstance identifier="CookiePlugin"/>
     </DiscoveryServiceHandler>
 
@@ -46,9 +51,31 @@
         location=".+/DS"
         provideList="true"
         provideListOfList="false"
-        default="true">
+        default="false" 
+      >
+        <Federation identifier="UK"/>
+        <PluginInstance identifier="CookiePlugin"/>
+    </DiscoveryServiceHandler>
+
+    <DiscoveryServiceHandler
+        location=".+/ukfull.wayf"
+        provideList="true"
+        provideListOfList="false"
+        default="false"
+       >
         <Federation identifier="UK-all"/>
         <PluginInstance identifier="CookiePlugin"/>
     </DiscoveryServiceHandler>
+
+    <DiscoveryServiceHandler
+        location=".+/ukfull.ds"
+        provideList="true"
+        provideListOfList="false"
+        default="false"
+       >
+        <Federation identifier="UK-all"/>
+        <PluginInstance identifier="CookiePlugin"/>
+    </DiscoveryServiceHandler>
+
 
 </WayfConfig>

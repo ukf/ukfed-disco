@@ -12,7 +12,9 @@
 
 <%
    TreeSet<IdPSite> sites;
-   StringBuilder urlBuilder = new StringBuilder();
+   StringBuilder baseUrlBuilder = new StringBuilder();
+   StringBuilder allURL = new StringBuilder();
+   StringBuilder theURL  = new StringBuilder();
    
    String NoResults = (String) request.getAttribute("searchResultsEmpty");
    TreeSet<IdPSite> SResults = (TreeSet<IdPSite>) request.getAttribute("searchresults");
@@ -40,7 +42,8 @@
       if (null == sites) { %>
 <jsp:forward page = "noBookmark.html"/>
       <% }
-      urlBuilder.append((String) session.getAttribute("returnURL"));
+      theURL.append((String) session.getAttribute("returnURL"));
+      allURL.append((String) session.getAttribute("allURL"));
 
       saml1Protocol = (Boolean) session.getAttribute("saml1Protocol");
       if (saml1Protocol) {
@@ -56,38 +59,42 @@
       sp = (EntityDescriptor) session.getAttribute("providerObject");
   } else { 
       saml1Protocol = (null == entityId);
-      urlBuilder.append((String) request.getAttribute("requestURL"));
+      theURL.append((String) request.getAttribute("requestURL"));
+      allURL.append("ukfull.ds");
 
       if (!saml1Protocol) {
-          urlBuilder.append("?entityID=");
-          urlBuilder.append(java.net.URLEncoder.encode(entityId, "utf-8"));
-          urlBuilder.append("&returnX=");
-          urlBuilder.append(java.net.URLEncoder.encode(returnX, "utf-8"));
-          urlBuilder.append("&returnIDParam=");
-          urlBuilder.append(java.net.URLEncoder.encode(returnIDParam, "utf-8" ));
+          baseUrlBuilder.append("?entityID=");
+          baseUrlBuilder.append(java.net.URLEncoder.encode(entityId, "utf-8"));
+          baseUrlBuilder.append("&returnX=");
+          baseUrlBuilder.append(java.net.URLEncoder.encode(returnX, "utf-8"));
+          baseUrlBuilder.append("&returnIDParam=");
+          baseUrlBuilder.append(java.net.URLEncoder.encode(returnIDParam, "utf-8" ));
 
          session.setAttribute("entityID", entityId);
          session.setAttribute("returnX", returnX);
          session.setAttribute("returnIDParam", returnIDParam);
 
       } else {
-          urlBuilder.append("?target=");
-          urlBuilder.append(java.net.URLEncoder.encode(target,"utf-8"));
-          urlBuilder.append("&shire=");
-          urlBuilder.append(java.net.URLEncoder.encode(shire,"utf-8"));
-          urlBuilder.append("&providerId=");
-          urlBuilder.append(java.net.URLEncoder.encode(providerId,"utf-8"));
+          baseUrlBuilder.append("?target=");
+          baseUrlBuilder.append(java.net.URLEncoder.encode(target,"utf-8"));
+          baseUrlBuilder.append("&shire=");
+          baseUrlBuilder.append(java.net.URLEncoder.encode(shire,"utf-8"));
+          baseUrlBuilder.append("&providerId=");
+          baseUrlBuilder.append(java.net.URLEncoder.encode(providerId,"utf-8"));
           if (null != time) {
-              urlBuilder.append("&time");
-              urlBuilder.append(time);
+              baseUrlBuilder.append("&time");
+              baseUrlBuilder.append(time);
           }
          session.setAttribute("shire", shire);
          session.setAttribute("target", target);
          session.setAttribute("providerId", providerId);
          session.setAttribute("time", time);
       }
-      urlBuilder.append("&cache=perm&action=selection&origin=");
-      session.setAttribute("returnURL", urlBuilder.toString());
+      theURL.append(baseUrlBuilder).append("&cache=perm&action=selection&origin=");
+      allURL.append(baseUrlBuilder).append("&cache=perm&action=lookup");
+      session.setAttribute("returnURL", theURL.toString());
+      session.setAttribute("allURL", allURL.toString());
+
       session.setAttribute("sites", sites);
       session.setAttribute("saml1Protocol", saml1Protocol);
       session.setAttribute("providerObject", sp);
@@ -153,7 +160,7 @@
 <title>Type an organisation name: Which organisation would you like to sign in with?</title>
 
 <script  type="text/javascript">
-var theURL = '<%=urlBuilder.toString()%>';
+var theURL = '<%=theURL.toString()%>';
 var theLogos=[];<%
   for (IdPSite site:sites) { 
      if (null == site.getExtensions()) { continue; }
@@ -175,11 +182,13 @@ var theLogos=[];<%
      }%>
      theLogos['<%=site.getName()%>']='<%=logoUrl%>';<%
    }%>
+/*
+Comment out hard wired values.  People need to start to put them in 
      theLogos['https://idp.cardiff.ac.uk/shibboleth']='https://iam.cf.ac.uk/images/CU-logo-64x63.png';
      theLogos['https://idp-dev.cardiff.ac.uk/idp/shibboleth']='https://iam.cf.ac.uk/images/CU-Dev-logo-80x60.png';
      theLogos['https://idp-preprod.cardiff.ac.uk/idp/shibboleth']='https://iam.cf.ac.uk/images/CU-Dev-logo-80x60.png';
-     theLogos['https://idp.edina.ac.uk/shibboleth-devel']='https://dlib-adidp.ucs.ed.ac.uk:442/Images/edina-logo110x58.jpg';
-     theLogos['https://idp.edina.ac.uk/shibboleth-devel-13']='https://dlib-adidp.ucs.ed.ac.uk:442/Images/edina-logo110x58.jpg';
+     theLogos['https://idp.edina.ac.uk/shibboleth-devel']='https://dlib-adidp.ucs.ed.ac.uk:442/Images/EdinaLogo110x58.jpg';
+     theLogos['https://idp.edina.ac.uk/shibboleth-devel-13']='https://dlib-adidp.ucs.ed.ac.uk:442/Images/EdinaLogo110x58.jpg';
      theLogos['https://idp.sussex.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/US_Corporate_Small-use_RGB_Flint.jpg';
      theLogos['https://idp.gla.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/university_of_glasgow.gif';
      theLogos['https://idptest.gla.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/university_of_glasgow.gif';
@@ -205,7 +214,7 @@ var theLogos=[];<%
      theLogos['https://lib.bsfc.ac.uk/idp/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/BSFC-Logo.png';
      theLogos['https://sso.bsfc.ac.uk/idp/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/BSFC-Logo.png';
      theLogos['urn:mace:eduserv.org.uk:athens:provider:liv.ac.uk']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/liverpool.gif';
-     theLogos['https://idp.glowscotland.org.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/glow.gif';
+     theLogos['https://idp.glowscotland.org.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/glow.gif';*/
 </script>
 
 
@@ -291,7 +300,7 @@ var theLogos=[];<%
 <% if (null != NoResults) { %>
   <h1 class="results">No results found</h1>
 <% } else if (null != (Object) SResults) {
-  String url = urlBuilder.toString(); %>
+  String url = theURL.toString(); %>
   <h1 class="results">Your SearchResults</h1><ul id="staticresults">
   <% for (IdPSite site:SResults) { %>
     <li class="as-result-itm"><a class="static" href="<%=url+ java.net.URLEncoder.encode(site.getName(), "utf-8")%>"><%=site.getDisplayName()%></a></li>
@@ -301,7 +310,8 @@ var theLogos=[];<%
 			
 
 			<p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
-
+<p></p>
+<p id="footer-text"><a href="<%=allURL%>">Show All IdPs</a></p>
 		</div>
 	</div>
 
