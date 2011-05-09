@@ -161,6 +161,8 @@
 
 <script  type="text/javascript">
 var theURL = '<%=theURL.toString()%>';
+var theIcons =[];
+theIcons['https://idp.edina.ac.uk/shibboleth-devel'] = 'https://dlib-adidp.ucs.ed.ac.uk:442/images/favicon.ico';
 var theLogos=[];<%
   for (IdPSite site:sites) { 
      if (null == site.getExtensions()) { continue; }
@@ -175,12 +177,20 @@ var theLogos=[];<%
      if (info == null) { continue;}
      if (null == info.getLogos() || 0 == info.getLogos().size()) { continue;}
      String logoUrl = null;
+     String iconUrl = null;
      for (Logo logo : info.getLogos()) { 
-        if (logo.getHeight() <= 16 && logo.getWidth() <= 16) continue;
-        logoUrl = logo.getURL().getLocalString();
-        break;
-     }%>
-     theLogos['<%=site.getName()%>']='<%=logoUrl%>';<%
+        if (logo.getHeight() <= 16 && logo.getWidth() <= 16) {
+	   iconUrl = logo.getURL().getLocalString();
+	   if (logoUrl != null) break;
+	} else {
+	   logoUrl = logo.getURL().getLocalString();
+           if (iconUrl != null) break;
+        }
+     }
+     if (logoUrl != null) {%> theLogos['<%=site.getName()%>']='<%=logoUrl%>';
+<%}
+     if (iconUrl != null) {%> theIcons['<%=site.getName()%>']='<%=iconUrl%>';
+<%}
    }%>
 /*
 Comment out hard wired values.  People need to start to put them in 
@@ -214,7 +224,9 @@ Comment out hard wired values.  People need to start to put them in
      theLogos['https://lib.bsfc.ac.uk/idp/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/BSFC-Logo.png';
      theLogos['https://sso.bsfc.ac.uk/idp/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/BSFC-Logo.png';
      theLogos['urn:mace:eduserv.org.uk:athens:provider:liv.ac.uk']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/liverpool.gif';
-     theLogos['https://idp.glowscotland.org.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/glow.gif';*/
+     theLogos['https://idp.glowscotland.org.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/glow.gif';
+*/
+
 </script>
 
 

@@ -313,7 +313,11 @@
 							} else {
 								var regx = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + query + ")(?![^<>]*>)(?![^&;]+;)", "g");
 							}
-							
+							if (null != theIcons &&
+							    null != this_data['value'] && 
+							    null != theIcons[this_data['value']]) {
+							    this_data[opts.selectedItemProp] = '<img src="' + theIcons[this_data['value']] + '" length="16"  width=16" alt="icon"/>&nbsp;' + this_data[opts.selectedItemProp];
+							}
 							if(opts.resultsHighlight){
 								this_data[opts.selectedItemProp] = this_data[opts.selectedItemProp].replace(regx,"<em>$1</em>");
 							}
