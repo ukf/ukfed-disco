@@ -19,7 +19,7 @@
    String NoResults = (String) request.getAttribute("searchResultsEmpty");
    TreeSet<IdPSite> SResults = (TreeSet<IdPSite>) request.getAttribute("searchresults");
 
-
+   double bestRatio = Math.log(80.0/60.0);
    String shire = (String) request.getAttribute("shire");
    String target = (String) request.getAttribute("target");
    String providerId = (String) request.getAttribute("providerId");
@@ -162,7 +162,6 @@
 <script  type="text/javascript">
 var theURL = '<%=theURL.toString()%>';
 var theIcons =[];
-theIcons['https://idp.edina.ac.uk/shibboleth-devel'] = 'https://dlib-adidp.ucs.ed.ac.uk:442/images/favicon.ico';
 var theLogos=[];<%
   for (IdPSite site:sites) { 
      if (null == site.getExtensions()) { continue; }
@@ -178,13 +177,22 @@ var theLogos=[];<%
      if (null == info.getLogos() || 0 == info.getLogos().size()) { continue;}
      String logoUrl = null;
      String iconUrl = null;
+     double curRatio = 0;
      for (Logo logo : info.getLogos()) { 
         if (logo.getHeight() <= 16 && logo.getWidth() <= 16) {
 	   iconUrl = logo.getURL().getLocalString();
-	   if (logoUrl != null) break;
-	} else {
+           continue;
+        if (logoURL == null) {
 	   logoUrl = logo.getURL().getLocalString();
-           if (iconUrl != null) break;
+           curRatio = Math.log(logo.getWidth()/logo.getHeight());
+           continue;
+        }
+        double ratio = Math.log(logo.getWidth()/logo.getHeight());
+        double him = Math.abs(bestRatio - curRatio);
+        double me = Math.abs(bestRatio - curRatio);
+        if (him > me) {
+	   logoUrl = logo.getURL().getLocalString();
+           curRatio = ratio;
         }
      }
      if (logoUrl != null) {%> theLogos['<%=site.getName()%>']='<%=logoUrl%>';
@@ -192,40 +200,6 @@ var theLogos=[];<%
      if (iconUrl != null) {%> theIcons['<%=site.getName()%>']='<%=iconUrl%>';
 <%}
    }%>
-/*
-Comment out hard wired values.  People need to start to put them in 
-     theLogos['https://idp.cardiff.ac.uk/shibboleth']='https://iam.cf.ac.uk/images/CU-logo-64x63.png';
-     theLogos['https://idp-dev.cardiff.ac.uk/idp/shibboleth']='https://iam.cf.ac.uk/images/CU-Dev-logo-80x60.png';
-     theLogos['https://idp-preprod.cardiff.ac.uk/idp/shibboleth']='https://iam.cf.ac.uk/images/CU-Dev-logo-80x60.png';
-     theLogos['https://idp.edina.ac.uk/shibboleth-devel']='https://dlib-adidp.ucs.ed.ac.uk:442/Images/EdinaLogo110x58.jpg';
-     theLogos['https://idp.edina.ac.uk/shibboleth-devel-13']='https://dlib-adidp.ucs.ed.ac.uk:442/Images/EdinaLogo110x58.jpg';
-     theLogos['https://idp.sussex.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/US_Corporate_Small-use_RGB_Flint.jpg';
-     theLogos['https://idp.gla.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/university_of_glasgow.gif';
-     theLogos['https://idptest.gla.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/university_of_glasgow.gif';
-     theLogos['https://idp.bath.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/bath-logo.png';
-     theLogos['https://idp.dundee.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/Dundee University Crest (85x60).GIF';
-     theLogos['https://idptest.dundee.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/Dundee University Crest (85x60).GIF';
-     theLogos['https://srvshibboleth.asfc.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/ashton-sixth-form.jpg';
-     theLogos['https://shibsles.brunel.ac.uk/idp/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/brunel_logo104x64.PNG';
-     theLogos['https://idp.colegsirgar.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/csglogo.JPG';
-     theLogos['https://idp-dev.sussex.ac.uk/idp/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/US_Corporate_Small-use_RGB_Flint.jpg';
-     theLogos['https://shib1.napier.ac.uk/entity']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/EdNapUniLogo_small.jpg';
-     theLogos['https://idp.aquinas.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/aquinas_logo_09.jpg';
-     theLogos['https://idp.bournemouth.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/bournemouth.gif';
-     theLogos['https://idp.soas.ac.uk/entity']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/soas_logo_72dpi_rgb.jpg';
-     theLogos['https://shibidp.soas.ac.uk/entity']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/soas_logo_72dpi_rgb.jpg';
-     theLogos['https://idp-test.brighton.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/uob_logo_vsmall.jpeg';
-     theLogos['https://idp.brighton.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/uob_logo_vsmall.jpeg';
-     theLogos['https://idp.lincoln.ac.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/UniversityOfLincoln.gif';
-     theLogos['https://shibboleth.cranfield.ac.uk/openathens']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/CranfieldUniversityLogo.gif';
-     theLogos['https://shibboleth-test.cranfield.ac.uk/idp/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/CranfieldUniversityLogo.gif';
-     theLogos['https://shibboleth.cranfield.ac.uk/idp/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/CranfieldUniversityLogo.gif';
-     theLogos['https://lib.bsfc.ac.uk/shibboleth-idp']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/BSFC-Logo.png';
-     theLogos['https://lib.bsfc.ac.uk/idp/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/BSFC-Logo.png';
-     theLogos['https://sso.bsfc.ac.uk/idp/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/BSFC-Logo.png';
-     theLogos['urn:mace:eduserv.org.uk:athens:provider:liv.ac.uk']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/liverpool.gif';
-     theLogos['https://idp.glowscotland.org.uk/shibboleth']='https://dlib-adidp.ucs.ed.ac.uk:442/images/others/glow.gif';
-*/
 
 </script>
 
@@ -323,7 +297,7 @@ Comment out hard wired values.  People need to start to put them in
 
 			<p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
 <p></p>
-<p id="footer-text"><a href="<%=allURL%>">Show All IdPs</a></p>
+<p id="footer-text">Search over<a href="<%=allURL%>">All Sites</a></p>
 		</div>
 	</div>
 
