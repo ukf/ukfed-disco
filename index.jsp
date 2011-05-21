@@ -182,7 +182,8 @@ var theLogos=[];<%
         if (logo.getHeight() <= 16 && logo.getWidth() <= 16) {
 	   iconUrl = logo.getURL().getLocalString();
            continue;
-        if (logoURL == null) {
+        }
+        if (logoUrl == null) {
 	   logoUrl = logo.getURL().getLocalString();
            curRatio = Math.log(logo.getWidth()/logo.getHeight());
            continue;
@@ -296,8 +297,7 @@ var theLogos=[];<%
 			
 
 			<p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
-<p></p>
-<p id="footer-text">Search over<a href="<%=allURL%>">All Sites</a></p>
+<p id="footer-text">Search over <a href="<%=allURL%>">All Sites</a></p>
 		</div>
 	</div>
 
