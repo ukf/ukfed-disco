@@ -49,7 +49,11 @@
   if (null != sp) {
     List<RoleDescriptor> roles = sp.getRoleDescriptors();
     for (RoleDescriptor r:roles) {
-      List<XMLObject> splist = r.getExtensions().getOrderedChildren();
+      Extensions ex = r.getExtensions();
+      if (null == ex) { 
+	  continue;
+      }
+      List<XMLObject> splist = ex.getOrderedChildren();
       for (XMLObject o:splist) { 
         if (o instanceof UIInfo) { 
           UIInfo info=null;
@@ -75,7 +79,10 @@
   
         if ("http".equals(scheme) || "https".equals(scheme)) {
           spName = uriId.getHost(); 
+        } else {
+          spName = sp.getEntityID();
         }
+
       } catch (URISyntaxException e) {
         // 
         // It wasn't an URI.  return full entityId.
