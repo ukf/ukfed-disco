@@ -20,13 +20,13 @@
         displayName="UK federation (unfiltered)"
         identifier="UK-all"
         type="edu.internet2.middleware.shibboleth.metadata.provider.XMLMetadata"
-	url="file:///Program Files/Internet2/IdP/etc/UkMetadata-test.xml"/>
+	url="file:///var/UKFED/metadata/ukfederation-metadata.xml"/>
 
     <MetadataProvider 
-        displayName="UK federation (unfiltered)"
+        displayName="UK federation (filtered)"
         identifier="UK"
         type="edu.internet2.middleware.shibboleth.metadata.provider.XMLMetadata"
-	url="file:///Program Files/Internet2/IdP/etc/UkMetadata-wayf.xml"/>
+	url="file:///var/UKFED/metadata/ukfederation-wayf.xml"/>
 
 
      <Plugin
