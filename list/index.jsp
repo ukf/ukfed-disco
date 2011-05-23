@@ -187,7 +187,7 @@ var theLogos=[];<%
 					<li>research Institution</li>
 				</ul>
 			</div>
-			<p class="subheading">Start typing the name of your <span class="tooltip" tabindex="1" title="School Network provider,College,University,Local authority or research Institution">organisation</span> (e.g. Anywhere College) in the search box, and options will appear below:</p>
+			<p class="subheading">Select the name of your <span class="tooltip" tabindex="1" title="School Network provider,College,University,Local authority or research Institution">organisation</span> (e.g. Anywhere College) in the search box, and options will appear below:</p>
 			<ul id="hints"></ul>
 			<fieldset>
 			<legend>Choose an option below or type your organisation name in the box below to find your sign in page</legend>

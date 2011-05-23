@@ -49,7 +49,9 @@ legend{left:-999em;position:absolute;top:-999em;}
 	h1{font-size:1.8em;color:#666666;font-weight:normal;text-align:left;clear:both;}
 	.subheading{margin:24px 0 27px 0;font-size:1em;}
 	#organisation-select-view h1,#organisation-select-view.subheading{text-align:center;}
-	
+
+	#hints img{margin-top:5px;margin-bottom:5px;}
+
 	#hints{margin:10px auto;list-style:none;width:370px;clear:both;overflow:hidden;}
 		#hints .hint{width:100px;float:left;margin:0 20px 0 0;text-align:center;}
 		#hints .hint a{text-decoration:none ;border:none}
