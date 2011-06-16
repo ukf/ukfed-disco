@@ -220,7 +220,7 @@ var theLogos=[];<%
 			<em>or</em> <a  tabindex="5" href="../index.jsp">Let me search</a></p>
 						<ul id="results"></ul>
 			<p id="footer-text">The UK Access Management Federation<br /><a href="../accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
-<p id="footer-text">Search over <a href="<%=allURL%>">All Sites</a></p>
+<p id="footer-text">Search over <a href="../<%=allURL%>">All Sites</a></p>
 
 		</div>
 	</div>

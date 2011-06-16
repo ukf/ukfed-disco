@@ -98,7 +98,7 @@
       session.setAttribute("sites", sites);
       session.setAttribute("saml1Protocol", saml1Protocol);
       session.setAttribute("providerObject", sp);
-      session.setMaxInactiveInterval(-1);
+      //session.setMaxInactiveInterval(-1);
   }
 
   //
