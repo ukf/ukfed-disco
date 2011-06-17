@@ -23,7 +23,7 @@
       } else {
          baseUrlBuilder.append('&');
       }
-      baseUrlBuilder.append(parmName).append('=').append(parms);
+      baseUrlBuilder.append(parmName).append('=').append(parm);
     }
 %>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -40,7 +40,7 @@
 	<div class="content">
 		<div id="help-top-view" >
 			<a href="#maincontent" class="hide" tabindex="0" accesskey="S">Skip to content</a><span class="hide">|</span>
-			<a class="back" href="" tabindex="2">Back to search</a>
+			<a class="back" href="../DS<%=baseUrlBuilder.toString()%>" tabindex="2">Back to search</a>
 			<h1 name="maincontent" id="maincontent">Help logging in</h1>
 			<div style="display:none;" id="intro">
 				<h2>The content you clicked on needs you to log into your organisation</h2>
@@ -55,11 +55,11 @@
 			</div>
 			<p class="subheading">Select an option which describes you best:</p>
 			<dl>
-			<dt><a href="schools/index.jsp">Schools</a></dt>
+			<dt><a href="schools/index.jsp<%=baseUrlBuilder.toString()%>">Schools</a></dt>
 			<dd>Primary, first, infant, junior, secondary school
 Reception to Year 11
 Key Stage 1 to GCSE</dd>
-<dt><a href="others/index.html">help for all other users</a></dt>
+<dt><a href="others/index.jsp<%=baseUrlBuilder.toString()%>">help for all other users</a></dt>
 <dd>Universities, colleges, local authorities, academic and research institutions and councils, and other relevant organisations.</dd>
 			</dl>
 			
