@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page contentType="text/html;charset=UTF-8" %> 
+<%@ page language="java" import="java.util.*,java.lang.*,javax.servlet.http.*, java.net.*"%>
+<%
+   StringBuilder baseUrlBuilder = new StringBuilder();
+   Map parmMap = request.getParameterMap();
+%>
+
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
+<%
+    //
+    // Grab parameters
+    //
+    Set keySet = parmMap.keySet();
+    for (Object o:keySet) {
+      String parmName =  o.toString();
+      String parms[] = (String[])parmMap.get(o);
+      String parm = parms[0];%><%=parmName%>=<%=parm%><br /><%
+      if (baseUrlBuilder.length() == 0) {
+         baseUrlBuilder.append('?');
+      } else {
+         baseUrlBuilder.append('&');
+      }
+      baseUrlBuilder.append(parmName).append('=').append(parms);
+    }
+%>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<title>Help logging in</title>
 	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;" />
@@ -16,7 +40,7 @@
 	<div class="content">
 		<div id="help-top-view" >
 			<a href="#maincontent" class="hide" tabindex="0" accesskey="S">Skip to content</a><span class="hide">|</span>
-			<a class="back" href="../index.jsp" tabindex="2">Back to search</a>
+			<a class="back" href="" tabindex="2">Back to search</a>
 			<h1 name="maincontent" id="maincontent">Help logging in</h1>
 			<div style="display:none;" id="intro">
 				<h2>The content you clicked on needs you to log into your organisation</h2>

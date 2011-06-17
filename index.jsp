@@ -3,10 +3,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %> 
 <%@ page language="java" import="java.util.*,edu.internet2.middleware.shibboleth.wayf.*,java.lang.*,org.opensaml.xml.*, org.opensaml.saml2.common.*, org.opensaml.saml2.metadata.*,edu.internet2.middleware.shibboleth.wayf.idpdisco.*,javax.servlet.http.*, java.net.*"%>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-
-<%@ taglib uri="/WEB-INF/tlds/struts-logic.tld" prefix="logic" %>
-<%@ taglib uri="/WEB-INF/tlds/struts-bean.tld" prefix="bean" %>
-
 <%request.setCharacterEncoding("UTF-8");%>
 <%response.setCharacterEncoding("UTF-8");%>
 
@@ -36,70 +32,37 @@
 
    sites = (TreeSet<IdPSite>) request.getAttribute("sites");
   
-   if (null == sites) {
-      // Been here already
-      sites = (TreeSet<IdPSite>) session.getAttribute("sites");
-      if (null == sites) { %>
+   if (null == sites) { %>
 <jsp:forward page = "noBookmark.html"/>
-      <% }
-      theURL.append((String) session.getAttribute("returnURL"));
-      allURL.append((String) session.getAttribute("allURL"));
+      <% 
+   }
 
-      saml1Protocol = (Boolean) session.getAttribute("saml1Protocol");
-      if (saml1Protocol) {
-         shire = (String) session.getAttribute("shire");
-         target = (String) session.getAttribute("target");
-         providerId = (String) session.getAttribute("providerId");
-         time = (String) session.getAttribute("time");
-      } else {
-         entityId = (String) session.getAttribute("entityID");
-         returnX = (String) session.getAttribute("returnX");
-         returnIDParam = (String) session.getAttribute("returnIDParam");
+   saml1Protocol = (null == entityId);
+   theURL.append((String) request.getAttribute("requestURL"));
+   allURL.append("ukfull.ds");
+
+   if (!saml1Protocol) {
+      baseUrlBuilder.append("?entityID=");
+      baseUrlBuilder.append(java.net.URLEncoder.encode(entityId, "utf-8"));
+      baseUrlBuilder.append("&returnX=");
+      baseUrlBuilder.append(java.net.URLEncoder.encode(returnX, "utf-8"));
+      baseUrlBuilder.append("&returnIDParam=");
+      baseUrlBuilder.append(java.net.URLEncoder.encode(returnIDParam, "utf-8" ));
+
+  } else {
+      baseUrlBuilder.append("?target=");
+      baseUrlBuilder.append(java.net.URLEncoder.encode(target,"utf-8"));
+      baseUrlBuilder.append("&shire=");
+      baseUrlBuilder.append(java.net.URLEncoder.encode(shire,"utf-8"));
+      baseUrlBuilder.append("&providerId=");
+      baseUrlBuilder.append(java.net.URLEncoder.encode(providerId,"utf-8"));
+      if (null != time) {
+          baseUrlBuilder.append("&time");
+          baseUrlBuilder.append(time);
       }
-      sp = (EntityDescriptor) session.getAttribute("providerObject");
-  } else { 
-      saml1Protocol = (null == entityId);
-      theURL.append((String) request.getAttribute("requestURL"));
-      allURL.append("ukfull.ds");
-
-      if (!saml1Protocol) {
-          baseUrlBuilder.append("?entityID=");
-          baseUrlBuilder.append(java.net.URLEncoder.encode(entityId, "utf-8"));
-          baseUrlBuilder.append("&returnX=");
-          baseUrlBuilder.append(java.net.URLEncoder.encode(returnX, "utf-8"));
-          baseUrlBuilder.append("&returnIDParam=");
-          baseUrlBuilder.append(java.net.URLEncoder.encode(returnIDParam, "utf-8" ));
-
-         session.setAttribute("entityID", entityId);
-         session.setAttribute("returnX", returnX);
-         session.setAttribute("returnIDParam", returnIDParam);
-
-      } else {
-          baseUrlBuilder.append("?target=");
-          baseUrlBuilder.append(java.net.URLEncoder.encode(target,"utf-8"));
-          baseUrlBuilder.append("&shire=");
-          baseUrlBuilder.append(java.net.URLEncoder.encode(shire,"utf-8"));
-          baseUrlBuilder.append("&providerId=");
-          baseUrlBuilder.append(java.net.URLEncoder.encode(providerId,"utf-8"));
-          if (null != time) {
-              baseUrlBuilder.append("&time");
-              baseUrlBuilder.append(time);
-          }
-         session.setAttribute("shire", shire);
-         session.setAttribute("target", target);
-         session.setAttribute("providerId", providerId);
-         session.setAttribute("time", time);
-      }
-      theURL.append(baseUrlBuilder).append("&cache=perm&action=selection&origin=");
-      allURL.append(baseUrlBuilder).append("&cache=perm&action=lookup");
-      session.setAttribute("returnURL", theURL.toString());
-      session.setAttribute("allURL", allURL.toString());
-
-      session.setAttribute("sites", sites);
-      session.setAttribute("saml1Protocol", saml1Protocol);
-      session.setAttribute("providerObject", sp);
-      //session.setMaxInactiveInterval(-1);
   }
+  theURL.append(baseUrlBuilder).append("&cache=perm&action=selection&origin=");
+  allURL.append(baseUrlBuilder).append("&cache=perm&action=lookup");
 
   //
   // SP logo and text
@@ -280,8 +243,8 @@ var theLogos=[];<%
 			</form>
 
 			</fieldset>
-			<p class="assist"><a tabindex="5" href="help/index.html">Need help logging in?</a><br/>
-			<em>or</em> <a  tabindex="6" href="list/index.jsp">Let me choose from a list</a></p>
+			<p class="assist"><a tabindex="5" href="help/index.jsp<%=baseUrlBuilder.toString()%>">Need help logging in?</a><br/>
+			<em>or</em> <a  tabindex="6" href="uk-list.ds<%=baseUrlBuilder.toString()%>">Let me choose from a list</a></p>
 						<ul id="results"><li class="hidden"></li></ul>
 
 <% if (null != NoResults) { %>

@@ -100,6 +100,7 @@ function loadHints(){
                     var eId = $.base64Decode(decodeURIComponent(hints[i].toString()))
                         if (eId != ""){
                             var text = $("#combobox option[value='" +eId+ "']").text();
+                            if (null != text && "" != text) {
                             var hint = $("<li class='hint'><a class='hint-link' href=\"" + theURL + encodeURIComponent(eId) + "\">" + text +"</a></li>")
                             var remove = $("<span class='hide'> | </span><a href='#' title='remove this link' rel='" + eId + "' class='remove-org-btn' id=''>remove &times;</a>").click(function(){removeHint(this)})
                             var imgURL = theLogos[eId];
@@ -113,6 +114,7 @@ function loadHints(){
                             hint.append(img);
                             hint.append(remove);
                             $("#hints").append(hint);
+                        } 
                         }
                 }
             }

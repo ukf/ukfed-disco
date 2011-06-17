@@ -12,11 +12,11 @@
 		<servlet-class>edu.internet2.middleware.shibboleth.wayf.WayfService</servlet-class>
 		<init-param>
 			<param-name>WAYFConfigFileLocation</param-name>
-			<param-value>$DS_HOME$/conf/wayfconfig.xml</param-value>
+			<param-value>C:\Program Files\DS/conf/wayfconfig.xml</param-value>
 		</init-param>
 		<init-param>
 			<param-name>WAYFLogConfig</param-name>
-			<param-value>$DS_HOME$/conf/logging.xml</param-value>
+			<param-value>C:\Program Files\DS/conf/logging.xml</param-value>
 		</init-param>
         <init-param>
             <param-name>loadMetadataExts</param-name>

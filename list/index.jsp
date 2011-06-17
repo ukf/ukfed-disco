@@ -7,39 +7,60 @@
 <%response.setCharacterEncoding("UTF-8");%>
 
 <%
-   TreeSet<IdPSite> sites = (TreeSet<IdPSite>) session.getValue("sites");
+   TreeSet<IdPSite> sites;
+   StringBuilder baseUrlBuilder = new StringBuilder();
    StringBuilder allURL = new StringBuilder();
-   StringBuilder urlBuilder = new StringBuilder();
+   StringBuilder theURL  = new StringBuilder();
 
    double bestRatio = Math.log(80.0/60.0);
-   String shire = "shire";
-   String target = "target";
-   String providerId = "providerId";
-   String time = "Time";
+   String shire = (String) request.getAttribute("shire");
+   String target = (String) request.getAttribute("target");
+   String providerId = (String) request.getAttribute("providerId");
+   String time = (String) request.getAttribute("time");
+
+   EntityDescriptor sp = (EntityDescriptor) request.getAttribute("providerObject");
    
-   String entityId = "entityID";
-   String returnX = "returnX";
-   String returnIDParam = "returnIdParam";
-   EntityDescriptor sp;
-   Boolean saml1Protocol; saml1Protocol = (Boolean) session.getAttribute("saml1Protocol");
+   String entityId = (String) request.getAttribute("entityID");
+   String returnX = (String) request.getAttribute("returnX");
+   if (null == returnX) returnX = request.getParameter("returnX");
+   String returnIDParam = (String) request.getAttribute("returnIDParam");
+   
+   Boolean saml1Protocol = (null == entityId);
 
-   if (null == saml1Protocol) { %>
+   sites = (TreeSet<IdPSite>) request.getAttribute("sites");
+  
+   if (null == sites) { %>
 <jsp:forward page = "noBookmark.html"/>
-<% }
-   urlBuilder.append((String) session.getAttribute("returnURL"));
-   allURL.append((String) session.getAttribute("allURL"));
-
-   if (saml1Protocol) {
-      shire = (String) session.getAttribute("shire");
-      target = (String) session.getAttribute("target");
-      providerId = (String) session.getAttribute("providerId");
-      time = (String) session.getAttribute("time");
-   } else {
-      entityId = (String) session.getAttribute("entityID");
-      returnX = (String) session.getAttribute("returnX");
-      returnIDParam = (String) session.getAttribute("returnIDParam");
+      <% 
    }
-   sp = (EntityDescriptor) session.getAttribute("providerObject");
+
+   saml1Protocol = (null == entityId);
+   theURL.append((String) request.getAttribute("requestURL"));
+   allURL.append("ukfull-list.ds");
+
+   if (!saml1Protocol) {
+      baseUrlBuilder.append("?entityID=");
+      baseUrlBuilder.append(java.net.URLEncoder.encode(entityId, "utf-8"));
+      baseUrlBuilder.append("&returnX=");
+      baseUrlBuilder.append(java.net.URLEncoder.encode(returnX, "utf-8"));
+      baseUrlBuilder.append("&returnIDParam=");
+      baseUrlBuilder.append(java.net.URLEncoder.encode(returnIDParam, "utf-8" ));
+
+  } else {
+      baseUrlBuilder.append("?target=");
+      baseUrlBuilder.append(java.net.URLEncoder.encode(target,"utf-8"));
+      baseUrlBuilder.append("&shire=");
+      baseUrlBuilder.append(java.net.URLEncoder.encode(shire,"utf-8"));
+      baseUrlBuilder.append("&providerId=");
+      baseUrlBuilder.append(java.net.URLEncoder.encode(providerId,"utf-8"));
+      if (null != time) {
+          baseUrlBuilder.append("&time");
+          baseUrlBuilder.append(time);
+      }
+  }
+  theURL.append(baseUrlBuilder).append("&cache=perm&action=selection&origin=");
+  allURL.append(baseUrlBuilder).append("&cache=perm&action=lookup");
+
 
   //
   // SP logo and text
@@ -100,7 +121,7 @@
 <title>Select from the list: Which organisation would you like to sign in with?</title>
 
 <script  type="text/javascript">
-var theURL = '<%=urlBuilder.toString()%>';
+var theURL = '<%=theURL.toString()%>';
 var theIcons =[];
 var theLogos=[];<%
   for (IdPSite site:sites) { 
@@ -144,23 +165,23 @@ var theLogos=[];<%
 
 </script>
 
-<script type="text/javascript" src="../js/jQuery/jquery-1.4.4.min.js"></script>
-<script type="text/javascript" src="../js/jQuery/plugins/jquery.tooltip.js"></script>
-<script type="text/javascript" src="../js/jQuery/plugins/jquery.base64.js"></script>
-<script type="text/javascript" src="../js/jQuery/plugins/jquery.tooltip.js"></script>
+<script type="text/javascript" src="js/jQuery/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="js/jQuery/plugins/jquery.tooltip.js"></script>
+<script type="text/javascript" src="js/jQuery/plugins/jquery.base64.js"></script>
+<script type="text/javascript" src="js/jQuery/plugins/jquery.tooltip.js"></script>
 
-<script type="text/javascript" src="../js/detect.js"></script>
-<script type="text/javascript" src="../js/list.js"></script>
+<script type="text/javascript" src="js/detect.js"></script>
+<script type="text/javascript" src="js/list.js"></script>
 
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;" />
 <meta name="viewport" content="target-densitydpi=medium-dpi" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<link type="text/css" href="../css/style.css" rel="stylesheet" />
-<link type="text/css" href="../css/autoSuggest.css" rel="stylesheet" />
+<link type="text/css" href="css/style.css" rel="stylesheet" />
+<link type="text/css" href="css/autoSuggest.css" rel="stylesheet" />
 <!--[if gte IE 9]>
-<link type="text/css" href="../css/enhanced.css" rel="stylesheet" />
+<link type="text/css" href="css/enhanced.css" rel="stylesheet" />
 <![endif]-->
 
 </head>
@@ -191,7 +212,7 @@ var theLogos=[];<%
 			<ul id="hints"></ul>
 			<fieldset>
 			<legend>Choose an option below or type your organisation name in the box below to find your sign in page</legend>
-			<form action="../WAYF" name="organisation-select-form" id="organisation-select-form" method="get">
+			<form action="WAYF" name="organisation-select-form" id="organisation-select-form" method="get">
 
 <% if (!saml1Protocol) { %>
 			<input type="hidden" name="entityID" value="<%=entityId.toString()%>" />
@@ -216,11 +237,11 @@ var theLogos=[];<%
 			</fieldset>
 			
 			
-			<p class="assist"><a tabindex="4" href="../help/index.html">Need help logging in?</a><br/>
-			<em>or</em> <a  tabindex="5" href="../index.jsp">Let me search</a></p>
+			<p class="assist"><a tabindex="4" href="help/index.jsp<%=baseUrlBuilder.toString()%>">Need help logging in?</a><br/>
+			<em>or</em> <a  tabindex="5" href="DS<%=baseUrlBuilder.toString()%>">Let me search</a></p>
 						<ul id="results"></ul>
-			<p id="footer-text">The UK Access Management Federation<br /><a href="../accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
-<p id="footer-text">Search over <a href="../<%=allURL%>">All Sites</a></p>
+			<p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
+<p id="footer-text">List <a href="<%=allURL%>">All Sites</a></p>
 
 		</div>
 	</div>
