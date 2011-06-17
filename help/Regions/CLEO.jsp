@@ -25,10 +25,7 @@
       baseUrlBuilder.append(parmName).append('=').append(parm);
     }
 
-   String theURL = "../../DS" + baseUrlBuilder.toString() + "&cache=perm&action=selection&origin=";
-   if (null == theURL) { %>
-<jsp:forward page = "../../noBookmark.html"/>
-   <% }
+   String theURL = "../../ukfull.ds" + baseUrlBuilder.toString() + "&cache=perm&action=selection&origin=";
 
    String Region = theURL + java.net.URLEncoder.encode("ENTITY_ID_FOR_REGION");
 %>
@@ -58,7 +55,7 @@
 				<li><a href='<%=Region%>'>Lancashire</a></li>
 			</ul>
 -->
-		</div><p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
+		</div><p id="footer-text">The UK Access Management Federation<br /><a href="../../accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
 		
 	</div>
 </body>

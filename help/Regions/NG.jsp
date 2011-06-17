@@ -9,10 +9,24 @@
 <%response.setCharacterEncoding("UTF-8");%>
 
 <%
-   String theURL = (String) session.getAttribute("returnURL");
-   if (null == theURL) { %>
-<jsp:forward page = "noBookmark.html"/>
-   <% }
+    StringBuilder baseUrlBuilder = new StringBuilder();
+    Map parmMap = request.getParameterMap();
+
+    Set keySet = parmMap.keySet();
+    for (Object o:keySet) {
+      String parmName =  o.toString();
+      String parms[] = (String[])parmMap.get(o);
+      String parm = parms[0];
+      if (baseUrlBuilder.length() == 0) {
+         baseUrlBuilder.append('?');
+      } else {
+         baseUrlBuilder.append('&');
+      }
+      baseUrlBuilder.append(parmName).append('=').append(parm);
+    }
+
+   String theURL = "../../ukfull.ds" + baseUrlBuilder.toString() + "&cache=perm&action=selection&origin=";
+
    String Region = theURL + java.net.URLEncoder.encode("ENTITY_ID_FOR_REGION");
 %>
 <head>
@@ -29,7 +43,7 @@
 	<div class="content">
 		<div id="region-list-view">
 						<a href="#maincontent" tabindex="1" class="hide" accesskey="S">Skip to content</a><span class="hide">|</span>
-			<a href="../schools/" class="back" tabindex="2">Back to help logging in</a>
+			<a href="../schools/index.jsp<%=baseUrlBuilder.toString()%>" class="back" tabindex="2">Back to help logging in</a>
 			<h1 id="maincontent" title="maincontent">You've chosen the North East region</h1>
                         <p>No Regions in your area have subscribed to this service</p>
                         <p>Please ask a teacher for help or log in to your School's Portal</p>
@@ -46,7 +60,7 @@
 				<li><a href='<%=Region%>'>Stockton-on-Tees</a></li>
 			</ul>
 -->
-		</div><p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
+		</div><p id="footer-text">The UK Access Management Federation<br /><a href="../../accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
 		
 	</div>
 </body>

@@ -26,11 +26,7 @@
       baseUrlBuilder.append(parmName).append('=').append(parm);
     }
 
-   String theURL = "../../DS" + baseUrlBuilder.toString() + "&cache=perm&action=selection&origin=";
-   if (null == theURL) { %>
-<jsp:forward page = "../../noBookmark.html"/>
-   <% }
-
+   String theURL = "../../ukfull.ds" + baseUrlBuilder.toString() + "&cache=perm&action=selection&origin=";
 
    String EMBC = theURL + java.net.URLEncoder.encode("https://embc.uk.com/shibboleth");
    String Notts = theURL + java.net.URLEncoder.encode("https://idp.nottscc.gov.uk/idp/shibboleth");
