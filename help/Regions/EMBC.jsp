@@ -9,10 +9,29 @@
 <%response.setCharacterEncoding("UTF-8");%>
 
 <%
-   String theURL = (String) session.getAttribute("returnURL");
+
+    StringBuilder baseUrlBuilder = new StringBuilder();
+    Map parmMap = request.getParameterMap();
+
+    Set keySet = parmMap.keySet();
+    for (Object o:keySet) {
+      String parmName =  o.toString();
+      String parms[] = (String[])parmMap.get(o);
+      String parm = parms[0];
+      if (baseUrlBuilder.length() == 0) {
+         baseUrlBuilder.append('?');
+      } else {
+         baseUrlBuilder.append('&');
+      }
+      baseUrlBuilder.append(parmName).append('=').append(parm);
+    }
+
+   String theURL = "../../DS" + baseUrlBuilder.toString() + "&cache=perm&action=selection&origin=";
    if (null == theURL) { %>
-<jsp:forward page = "noBookmark.html"/>
+<jsp:forward page = "../../noBookmark.html"/>
    <% }
+
+
    String EMBC = theURL + java.net.URLEncoder.encode("https://embc.uk.com/shibboleth");
    String Notts = theURL + java.net.URLEncoder.encode("https://idp.nottscc.gov.uk/idp/shibboleth");
 %>
@@ -30,7 +49,7 @@
 	<div class="content">
 		<div id="region-list-view">
 						<a href="#maincontent" tabindex="1" class="hide" accesskey="S">Skip to content</a><span class="hide">|</span>
-			<a href="../schools/" class="back" tabindex="2">Back to help logging in</a>
+			<a href="../schools/index.jsp<%=baseUrlBuilder.toString()%>" class="back" tabindex="2">Back to help logging in</a>
 			<h1 id="maincontent" title="maincontent">You've chosen the East Midlands region</h1>
 			<p>Find your organisation in the list below, and select it to log in.</p>
 			<p>If you're still having problems, ask your teacher or log into your school's portal.</p>	
@@ -45,7 +64,7 @@
 				<li><a href='<%=EMBC%>'>Rutland</a></li>
 				<li><a href='<%=EMBC%>'><img src="../../images/logos/embc.gif" alt="EMBC" /></li></a>
 			</ul>		
-		</div><p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
+		</div><p id="footer-text">The UK Access Management Federation<br /><a href="../../accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
 		
 	</div>
 	

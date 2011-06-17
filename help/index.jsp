@@ -17,7 +17,7 @@
     for (Object o:keySet) {
       String parmName =  o.toString();
       String parms[] = (String[])parmMap.get(o);
-      String parm = parms[0];%><%=parmName%>=<%=parm%><br /><%
+      String parm = parms[0];
       if (baseUrlBuilder.length() == 0) {
          baseUrlBuilder.append('?');
       } else {
