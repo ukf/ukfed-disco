@@ -125,6 +125,7 @@
 <script  type="text/javascript">
 var theURL = '<%=theURL.toString()%>';
 var theIcons =[];
+var theWidths= [];
 var theLogos=[];<%
   for (IdPSite site:sites) { 
      if (null == site.getExtensions()) { continue; }
@@ -140,6 +141,7 @@ var theLogos=[];<%
      if (null == info.getLogos() || 0 == info.getLogos().size()) { continue;}
      String logoUrl = null;
      String iconUrl = null;
+     int logoWidth = 90;
      double curRatio = 0;
      for (Logo logo : info.getLogos()) { 
         if (logo.getHeight() <= 16 && logo.getWidth() <= 16) {
@@ -149,6 +151,7 @@ var theLogos=[];<%
         if (logoUrl == null) {
 	   logoUrl = logo.getURL().getLocalString();
            curRatio = Math.log(logo.getWidth()/logo.getHeight());
+           logoWidth = logo.getWidth();
            continue;
         }
         double ratio = Math.log(logo.getWidth()/logo.getHeight());
@@ -156,10 +159,14 @@ var theLogos=[];<%
         double me = Math.abs(bestRatio - curRatio);
         if (him > me) {
 	   logoUrl = logo.getURL().getLocalString();
+           logoWidth = logo.getWidth();
            curRatio = ratio;
         }
      }
-     if (logoUrl != null) {%> theLogos['<%=site.getName()%>']='<%=logoUrl%>';
+     if (logoUrl != null) {
+%> theLogos['<%=site.getName()%>']='<%=logoUrl%>';
+   theWidths['<%=site.getName()%>']='<%=logoWidth%>';
+
 <%}
      if (iconUrl != null) {%> theIcons['<%=site.getName()%>']='<%=iconUrl%>';
 <%}
