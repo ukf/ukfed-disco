@@ -69,6 +69,7 @@
   //
   String spName = null;
   String spLogo = null;
+  String spDescription = null;
 
   if (null != sp) {
     List<RoleDescriptor> roles = sp.getRoleDescriptors();
@@ -90,6 +91,10 @@
             }
             for (DisplayName dn : info.getDisplayNames()) { 
               if (null == spName) spName = dn.getName().getLocalString();
+              break;
+            }
+            for (Description dn : info.getDescriptions()) { 
+              if (null == spDescription) spDescription = dn.getDescription().getLocalString();
               break;
             }
           }
@@ -117,6 +122,10 @@
       spName = "Unknown Service Provider";
   } 
 
+  if (null == spDescription) {
+    spDescription = "You have asked to login to " + spName;
+  }
+
   %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -125,6 +134,7 @@
 <script  type="text/javascript">
 var theURL = '<%=theURL.toString()%>';
 var theIcons =[];
+var theWidths= [];
 var theLogos=[];<%
   for (IdPSite site:sites) { 
      if (null == site.getExtensions()) { continue; }
@@ -140,6 +150,7 @@ var theLogos=[];<%
      if (null == info.getLogos() || 0 == info.getLogos().size()) { continue;}
      String logoUrl = null;
      String iconUrl = null;
+     int logoWidth = 90;
      double curRatio = 0;
      for (Logo logo : info.getLogos()) { 
         if (logo.getHeight() <= 16 && logo.getWidth() <= 16) {
@@ -149,6 +160,7 @@ var theLogos=[];<%
         if (logoUrl == null) {
 	   logoUrl = logo.getURL().getLocalString();
            curRatio = Math.log(logo.getWidth()/logo.getHeight());
+           logoWidth = logo.getWidth();
            continue;
         }
         double ratio = Math.log(logo.getWidth()/logo.getHeight());
@@ -156,10 +168,14 @@ var theLogos=[];<%
         double me = Math.abs(bestRatio - curRatio);
         if (him > me) {
 	   logoUrl = logo.getURL().getLocalString();
+           logoWidth = logo.getWidth();
            curRatio = ratio;
         }
      }
-     if (logoUrl != null) {%> theLogos['<%=site.getName()%>']='<%=logoUrl%>';
+     if (logoUrl != null) {
+%> theLogos['<%=site.getName()%>']='<%=logoUrl%>';
+   theWidths['<%=site.getName()%>']='<%=logoWidth%>';
+
 <%}
      if (iconUrl != null) {%> theIcons['<%=site.getName()%>']='<%=iconUrl%>';
 <%}
@@ -200,7 +216,7 @@ var theLogos=[];<%
                                  <img src="<%=spLogo%>" alt="<%=spName%>"/>
                                </div>
                            <% } %>
-                           <div id="co-branding-text"><%=spName%></div>
+                           <div id="co-branding-text"><%=spDescription%></div>
                         </div>
 			<h1>Which organisation would you like to sign in with?</h1>
 			<span id="maincontent"></span>
