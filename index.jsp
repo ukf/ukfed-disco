@@ -69,6 +69,7 @@
   //
   String spName = null;
   String spLogo = null;
+  String spDescription = null;
 
   if (null != sp) {
     List<RoleDescriptor> roles = sp.getRoleDescriptors();
@@ -90,6 +91,10 @@
             }
             for (DisplayName dn : info.getDisplayNames()) { 
               if (null == spName) spName = dn.getName().getLocalString();
+              break;
+            }
+            for (Description dn : info.getDescriptions()) { 
+              if (null == spDescription) spDescription = dn.getDescription().getLocalString();
               break;
             }
           }
@@ -116,6 +121,10 @@
   } else {
       spName = "Unknown Service Provider";
   } 
+
+  if (null == spDescription) {
+    spDescription = "You have asked to login to " + spName;
+  }
 
   %>
 <head>
@@ -202,12 +211,13 @@ var theLogos=[];<%
 			<a href="#maincontent" class="hide" tabindex="1" accesskey="S">Skip to content</a>
 
 			<div id="co-branding">
+                           <div id="co-branding-text"><%=spName%></div>
                            <% if (spLogo != null) { %>
                                <div id="co-branding-img">
                                  <img src="<%=spLogo%>" alt="<%=spName%>"/>
                                </div>
                            <% } %>
-                           <div id="co-branding-text"><%=spName%></div>
+                           <div id="co-branding-text"><%=spDescription%></div>
                         </div>
 			<h1>Which organisation would you like to sign in with?</h1>
 			<span id="maincontent"></span>
