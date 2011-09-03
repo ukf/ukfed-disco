@@ -199,7 +199,6 @@ var theLogos=[];<%
 	<div class="content">
 		<div id="organisation-select-view">
 			<div id="co-branding">
-                           <div id="co-branding-text"><%=spName%></div>
                            <% if (spLogo != null) { %>
                                <div id="co-branding-img">
                                  <img src="<%=spLogo%>" alt="<%=spName%>"/>

@@ -211,7 +211,6 @@ var theLogos=[];<%
 			<a href="#maincontent" class="hide" tabindex="1" accesskey="S">Skip to content</a>
 
 			<div id="co-branding">
-                           <div id="co-branding-text"><%=spName%></div>
                            <% if (spLogo != null) { %>
                                <div id="co-branding-img">
                                  <img src="<%=spLogo%>" alt="<%=spName%>"/>
