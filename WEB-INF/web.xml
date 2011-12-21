@@ -19,10 +19,6 @@
 			<param-value>C:\Program Files\DS/conf/logging.xml</param-value>
 		</init-param>
         <init-param>
-            <param-name>loadMetadataExts</param-name>
-            <param-value>true</param-value>
-        </init-param>
-        <init-param>
             <param-name>WAYFLogConfigPollFrequency</param-name>
             <param-value>300000</param-value>
         </init-param>

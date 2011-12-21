@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=UTF-8" %> 
-<%@ page language="java" import="java.util.*,edu.internet2.middleware.shibboleth.wayf.*,java.lang.*,org.opensaml.xml.*, org.opensaml.saml2.common.*, org.opensaml.saml2.metadata.*,edu.internet2.middleware.shibboleth.wayf.idpdisco.*,javax.servlet.http.*, java.net.*"%>
+<%@ page language="java" import="java.util.*,edu.internet2.middleware.shibboleth.wayf.*,java.lang.*,org.opensaml.xml.*, org.opensaml.saml2.common.*, org.opensaml.saml2.metadata.*, org.opensaml.samlext.saml2mdui.*,javax.servlet.http.*, java.net.*"%>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <%request.setCharacterEncoding("UTF-8");%>
 <%response.setCharacterEncoding("UTF-8");%>
@@ -85,7 +85,7 @@
           if (info.getLogos() != null) {
             for (Logo logo : info.getLogos()) { 
               if (logo.getHeight() <= 16 && logo.getWidth() <= 16) continue;
-              if (null == spLogo) spLogo = logo.getURL().getLocalString();
+              if (null == spLogo) spLogo = logo.getURL();
               break;
             }
             for (DisplayName dn : info.getDisplayNames()) { 
@@ -143,11 +143,11 @@ var theLogos=[];<%
      double curRatio = 0;
      for (Logo logo : info.getLogos()) { 
         if (logo.getHeight() <= 16 && logo.getWidth() <= 16) {
-	   iconUrl = logo.getURL().getLocalString();
+	   iconUrl = logo.getURL();
            continue;
         }
         if (logoUrl == null) {
-	   logoUrl = logo.getURL().getLocalString();
+	   logoUrl = logo.getURL();
            curRatio = Math.log(logo.getWidth()/logo.getHeight());
            continue;
         }
@@ -155,7 +155,7 @@ var theLogos=[];<%
         double him = Math.abs(bestRatio - curRatio);
         double me = Math.abs(bestRatio - curRatio);
         if (him > me) {
-	   logoUrl = logo.getURL().getLocalString();
+	   logoUrl = logo.getURL();
            curRatio = ratio;
         }
      }
