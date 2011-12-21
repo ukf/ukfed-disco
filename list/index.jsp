@@ -249,7 +249,7 @@ var theLogos=[];<%
 			<p class="assist"><a tabindex="4" href="help/index.jsp<%=baseUrlBuilder.toString()%>">Need help logging in?</a><br/>
 			<em>or</em> <a  tabindex="5" href="DS<%=baseUrlBuilder.toString()%>">Let me search</a></p>
 						<ul id="results"></ul>
-			<p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
+			<p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.jsp<%=baseUrlBuilder.toString()%>"  accesskey="0">Accessibility statement</a></p>
 <p id="footer-text">List <a href="<%=allURL%>">All Sites</a></p>
 
 		</div>
