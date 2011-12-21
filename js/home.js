@@ -156,7 +156,11 @@ function loadHints(){
                                 var hint = $("<li class='hint'><a class='hint-link' href=\"" + theURL + encodeURIComponent(eId) + "\">" + text +"</a></li>")
                                 var remove = $("<span class='hide'> | </span><a href='#' title='remove this link' rel='" + eId + "' class='remove-org-btn' id=''>remove &times;</a>").click(function(){removeHint(this)})
                                 var imgURL = theLogos[eId];
-                                var img = $(".hint-link", hint).append($("<img src='"+imgURL+"' width='90' alt='' title=''/>").error(function() {$(this).remove();}))
+                                var imgWid = theWidths[eId];
+                                if (imgWid > 90) {
+				    imgWid = 90;
+				}
+                                var img = $(".hint-link", hint).append($("<img src='"+imgURL+"' width='"+imgWid+"' alt='' title=''/>").error(function() {$(this).remove();}))
                                 hint.append(img);
                                 hint.append(remove);
                                 $("#hints").append(hint);
