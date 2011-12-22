@@ -54,7 +54,7 @@ $(document).ready(function(){
             $("#submit-btn").attr("disabled",true).attr("class","btn-disabled");
             // load the combobox with the array and set the search keys
             // then add ARIA flag and set the trigger for text change on the button                                     
-            $("input[type=text]").autoSuggest(data.items, {selectedItemProp: "name", searchObjProps: "name"}).attr("aria-autocomplete","list").keypress(function(){$("#submit-btn").html("Search");$("#combobox").val("")
+            $("input[type=text]").autoSuggest(data.items, {selectedItemProp: "name", searchObjProps: "name, value"}).attr("aria-autocomplete","list").keypress(function(){$("#submit-btn").html("Search");$("#combobox").val("")
                                                                                                                                                                                                        });
 
             // form submission 
