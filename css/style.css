@@ -62,7 +62,7 @@ legend{left:-999em;position:absolute;top:-999em;}
 	/* organisation form */
 	#organisation-input{background:url(../images/search-field-bg.jpg) no-repeat;width:408px;height:23px;border:none;margin:31px 0 0 140px;font-size:0.75em;padding:5px 0 5px 11px;_padding:8px 0 2px 11px}
 	#organisation-input:hover{background:url(../images/search-field-bg.jpg) no-repeat 0 100%}
-	#combobox{margin: 0  8px 0 0;padding:5px 10px 5px 0;height:34px;font-size:1em; !important;overflow:hidden;}
+	#combobox{margin: 0  8px 0 0;padding:5px 10px 5px 0;height:34px;font-size:1em; width:380px;!important;overflow:hidden;}
 		.quick-link{float:right;}
 		.quick-link:hover{text-decoration:underline;cursor:pointer}
 	.search{width:522px;margin:0 auto;}
