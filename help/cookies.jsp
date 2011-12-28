@@ -47,7 +47,7 @@
 			<p></p>
 		
 	<p> This website can use two cookies whose use is described below.  A cookie is a small file of
-letters and nuber that we put on your computer if you agree.  We do
+letters and numbers that we put on your computer if you agree.</p><p class="emphasize"> We do
 not use these cookies to distinguish or track you in any way.  They
 are used purely to simplify your future experience on this website.
 				<dt >The "_saml_idp" cookie</dt>

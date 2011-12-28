@@ -30,7 +30,7 @@
    //
    Cookie cookieList[] = request.getCookies();
    boolean cookieOn = false;
-   for (int i = 0; i < cookieList.length; i++) { 
+   for (int i = 0; cookieList != null && i < cookieList.length; i++) { 
      Cookie cookie = cookieList[i];
      if ("CookieMonitor".equals(cookie.getName()) && "yes".equals(cookie.getValue())) { 
          cookieOn = true; 

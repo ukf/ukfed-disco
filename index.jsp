@@ -42,7 +42,7 @@
    //
    Cookie cookieList[] = request.getCookies();
    boolean cookieOn = false;
-   for (int i = 0; i < cookieList.length; i++) { 
+   for (int i = 0; cookieList != null && i < cookieList.length; i++) { 
      Cookie cookie = cookieList[i];
      if ("CookieMonitor".equals(cookie.getName()) && "yes".equals(cookie.getValue())) { 
          cookieOn = true; 
@@ -209,7 +209,8 @@ var theLogos=[];<%
 
 <script type="text/javascript" src="js/detect.js"></script>
 <script type="text/javascript" src="js/cookie.js"></script>
-<script type="text/javascript" src="js/home.js"></script>
+<!-- New name to stop js caching biting us.  Since the change is legally required we have to force the reload -->
+<script type="text/javascript" src="js/home-cookieRev.js"></script>
 
 
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;" />

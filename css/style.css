@@ -152,3 +152,5 @@ img#map_tight{}
 	#region-list-view ul{margin:0;padding:0;}
 	#region-list-view li{list-style:none;margin:3px 0;text-align:left;background:url(../images/arrow-right.gif) no-repeat  0 5px;padding:0 0 1% 3em; text-indent: -2em}
 #CookieMsgAnchor {background-color:#FFCC00;font-size 0.9em;}
+.emphasize {font-weight: bold;}
+
