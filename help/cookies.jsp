@@ -65,14 +65,8 @@ are used purely to simplify your future experience on this website.
 				
 				<dt >Change my cookie settings</dt>
 				<dd id="changeCookies">
-					<p>You need to have javascript enabled to change your cookie settings</p>
+					<p>You need to have javascript enabled to change your cookie settings from this page.</p>
 				</dd>
-				
-				<dt >JavaScript</dt>
-				<dd>
-					<p>Cookies are only user or saved if your browser has JavaScript enabled.  Whilst JvaScrtipt is disabled no cookies are stored.
-				</dd>
-		
 									
 			</dl>
 			<p id="footer-text">The UK Access Management Federation<br /><a href="../accessibility-statement.jsp<%=baseUrlBuilder.toString()%>" accesskey="0">Accessibility statement</a></p>

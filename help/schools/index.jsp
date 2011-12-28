@@ -26,7 +26,28 @@
       baseUrlBuilder.append(parmName).append('=').append(parm);
     }
 
-   String theURL = "../../DS" + baseUrlBuilder.toString() + "&cache=perm&action=selection&origin=";
+   //
+   // Look up the CookieMonitor cookie
+   //
+   Cookie cookieList[] = request.getCookies();
+   boolean cookieOn = false;
+   for (int i = 0; i < cookieList.length; i++) { 
+     Cookie cookie = cookieList[i];
+     if ("CookieMonitor".equals(cookie.getName()) && "yes".equals(cookie.getValue())) { 
+         cookieOn = true; 
+         break; 
+     }
+   }
+ 
+   StringBuilder urlBuilder = new StringBuilder();
+   urlBuilder.append("../../ukfull.ds").append(baseUrlBuilder);
+   if (cookieOn) {
+     urlBuilder.append("&cache=perm");
+   }
+   urlBuilder.append("&action=selection&origin=");
+   
+   String theURL = urlBuilder.toString();
+   //String theURL = "../../DS" + baseUrlBuilder.toString() + "&cache=perm&action=selection&origin=";
    if (null == theURL) { %>
 <jsp:forward page = "../../noBookmark.html"/>
    <% }

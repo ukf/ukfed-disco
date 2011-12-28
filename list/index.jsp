@@ -58,8 +58,25 @@
           baseUrlBuilder.append(time);
       }
   }
-  theURL.append(baseUrlBuilder).append("&cache=perm&action=selection&origin=");
-  allURL.append(baseUrlBuilder).append("&cache=perm&action=lookup");
+   //
+   // Look up the CookieMonitor cookie
+   //
+   Cookie cookieList[] = request.getCookies();
+   boolean cookieOn = false;
+   for (int i = 0; i < cookieList.length; i++) { 
+     Cookie cookie = cookieList[i];
+     if ("CookieMonitor".equals(cookie.getName()) && "yes".equals(cookie.getValue())) { 
+         cookieOn = true; 
+         break; 
+     }
+   }
+
+  if (cookieOn) {
+    theURL.append(baseUrlBuilder).append("&cache=perm&action=selection&origin=");
+  } else {
+    theURL.append(baseUrlBuilder).append("&cache=none&action=selection&origin=");
+  }
+  allURL.append(baseUrlBuilder).append("&action=lookup");
 
 
   //
@@ -233,7 +250,9 @@ var theLogos=[];<%
 			<input type="hidden" name="target" value="<%=target.toString() %>" />
                         <input type="hidden" name="providerId" value="<%=providerId.toString() %>" />
                         <input type="hidden" name="time" value="<%=time.toString() %>" />
-<% } %>
+<% } 
+   if (cookieOn) { %> <input type="hidden" name="cache" value="perm" /> <% } %>
+
             <input type="hidden" name="action" value="selection" />
 			<div class="search">						
 			<select id="combobox" class="as-selections" name="origin">

@@ -25,7 +25,28 @@
       baseUrlBuilder.append(parmName).append('=').append(parm);
     }
 
-   String theURL = "../../ukfull.ds" + baseUrlBuilder.toString() + "&cache=perm&action=selection&origin=";
+   //
+   // Look up the CookieMonitor cookie
+   //
+   Cookie cookieList[] = request.getCookies();
+   boolean cookieOn = false;
+   for (int i = 0; i < cookieList.length; i++) { 
+     Cookie cookie = cookieList[i];
+     if ("CookieMonitor".equals(cookie.getName()) && "yes".equals(cookie.getValue())) { 
+         cookieOn = true; 
+         break; 
+     }
+   }
+ 
+   StringBuilder urlBuilder = new StringBuilder();
+   urlBuilder.append("../../ukfull.ds").append(baseUrlBuilder);
+   if (cookieOn) {
+     urlBuilder.append("&cache=perm");
+   }
+   urlBuilder.append("&action=selection&origin=");
+   
+   String theURL = urlBuilder.toString();
+   //   String theURL = "../../ukfull.ds" + baseUrlBuilder.toString() + "&cache=perm&action=selection&origin=";
 
    String SWGFL = theURL + java.net.URLEncoder.encode("https://idp.merlin.swgfl.org.uk/shibboleth");
    String Somerset = theURL + java.net.URLEncoder.encode("https://fronter.com/shibboleth/somerset/idp");
@@ -68,7 +89,7 @@
 				<li><a href='<%=SWGFL%>'>Wiltshire</a></li>
 				<li><a href='<%=SWGFL%>'><img src="../../images/logos/SWGfL.jpg" alt="SWGfL Merlin" /></li></a>
 			</ul>		
-		</div><p id="footer-text">The UK Access Management Federation<br /><a href="../../accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
+		</div><p id="footer-text">The UK Access Management Federation<br /><a href="../../accessibility-statement.html"  accesskey="0">Accessibility statement</a>&nbsp;<a href="../cookies.jsp<%=baseUrlBuilder.toString()%>" access=key="c">Cookie statement</a></p>
 		
 	</div>
 	

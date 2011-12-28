@@ -25,7 +25,27 @@
       baseUrlBuilder.append(parmName).append('=').append(parm);
     }
 
-   String theURL = "../../ukfull.ds" + baseUrlBuilder.toString() + "&cache=perm&action=selection&origin=";
+   //
+   // Look up the CookieMonitor cookie
+   //
+   Cookie cookieList[] = request.getCookies();
+   boolean cookieOn = false;
+   for (int i = 0; i < cookieList.length; i++) { 
+     Cookie cookie = cookieList[i];
+     if ("CookieMonitor".equals(cookie.getName()) && "yes".equals(cookie.getValue())) { 
+         cookieOn = true; 
+         break; 
+     }
+   }
+ 
+   StringBuilder urlBuilder = new StringBuilder();
+   urlBuilder.append("../../ukfull.ds").append(baseUrlBuilder);
+   if (cookieOn) {
+     urlBuilder.append("&cache=perm");
+   }
+   urlBuilder.append("&action=selection&origin=");
+   
+   String theURL = urlBuilder.toString();
 
    String Region = theURL + java.net.URLEncoder.encode("ENTITY_ID_FOR_REGION");
 %>
@@ -40,7 +60,7 @@
 </head>
 <body>
 
-	<div class="content">
+	<div class="content"> 
 		<div id="region-list-view">
 						<a href="#maincontent" tabindex="1" class="hide" accesskey="S">Skip to content</a><span class="hide">|</span>
 			<a href="../schools/index.jsp<%=baseUrlBuilder.toString()%>" class="back" tabindex="2">Back to help logging in</a>
@@ -55,7 +75,7 @@
 				<li><a href='<%=Region%>'>Lancashire</a></li>
 			</ul>
 -->
-		</div><p id="footer-text">The UK Access Management Federation<br /><a href="../../accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
+		</div><p id="footer-text">The UK Access Management Federation<br /><a href="../../accessibility-statement.html"  accesskey="0">Accessibility statement</a>&nbsp;<a href="../cookies.jsp<%=baseUrlBuilder.toString()%>" access=key="c">Cookie statement</a></p>
 		
 	</div>
 </body>
