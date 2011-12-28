@@ -181,6 +181,7 @@ var theLogos=[];<%
 <script type="text/javascript" src="js/jQuery/plugins/jquery.tooltip.js"></script>
 
 <script type="text/javascript" src="js/detect.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
 <script type="text/javascript" src="js/list.js"></script>
 
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;" />
@@ -249,7 +250,9 @@ var theLogos=[];<%
 			<p class="assist"><a tabindex="4" href="help/index.jsp<%=baseUrlBuilder.toString()%>">Need help logging in?</a><br/>
 			<em>or</em> <a  tabindex="5" href="DS<%=baseUrlBuilder.toString()%>">Let me search</a></p>
 						<ul id="results"></ul>
-			<p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.jsp<%=baseUrlBuilder.toString()%>"  accesskey="0">Accessibility statement</a></p>
+			<p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.jsp<%=baseUrlBuilder.toString()%>"  accesskey="0">Accessibility statement</a>
+                        &nbsp;<a href="help/cookies.jsp<%=baseUrlBuilder.toString()%>" access=key="c">Cookie statement</a>
+</p>
 <p id="footer-text">List <a href="<%=allURL%>">All Sites</a></p>
 
 		</div>

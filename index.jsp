@@ -61,8 +61,8 @@
           baseUrlBuilder.append(time);
       }
   }
-  theURL.append(baseUrlBuilder).append("&cache=perm&action=selection&origin=");
-  allURL.append(baseUrlBuilder).append("&cache=perm&action=lookup");
+  theURL.append(baseUrlBuilder).append("&cache=none&action=selection&origin=");
+  allURL.append(baseUrlBuilder).append("&action=lookup");
 
   //
   // SP logo and text
@@ -133,6 +133,7 @@
 
 <script  type="text/javascript">
 var theURL = '<%=theURL.toString()%>';
+var theParams = '<%=baseUrlBuilder.toString()%>';
 var theIcons =[];
 var theWidths= [];
 var theLogos=[];<%
@@ -190,6 +191,7 @@ var theLogos=[];<%
 <script type="text/javascript" src="js/jQuery/plugins/jquery.tooltip.js"></script>
 
 <script type="text/javascript" src="js/detect.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
 <script type="text/javascript" src="js/home.js"></script>
 
 
@@ -273,9 +275,10 @@ var theLogos=[];<%
   <% } %></ul>
 <% } %>
 
+<div id="CookieMsgAnchor"></div>
 			
 
-			<p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.jsp<%=baseUrlBuilder.toString()%>"  accesskey="0">Accessibility statement</a></p>
+			<p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.jsp<%=baseUrlBuilder.toString()%>"  accesskey="0">Accessibility statement</a>&nbsp;<a href="help/cookies.jsp<%=baseUrlBuilder.toString()%>" access=key="c">Cookie statement</a></p>
 <p id="footer-text">Search over <a href="<%=allURL%>">All Sites</a></p>
 		</div>
 	</div>

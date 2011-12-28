@@ -66,7 +66,8 @@ Key Stage 1 to GCSE</dd>
 			
 			
 			
-			<p id="footer-text">The UK Access Management Federation<br /><a href="../accessibility-statement.html" accesskey="0">Accessibility statement</a></p>
+			<p id="footer-text">The UK Access Management Federation<br /><a href="../accessibility-statement.jsp<%=baseUrlBuilder.toString()%>" accesskey="0">Accessibility statement</a>
+&nbsp;<a href="cookies.jsp<%=baseUrlBuilder.toString()%>" access=key="c">Cookie statement</a></p>
 
 		</div>
 	</div>

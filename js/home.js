@@ -5,8 +5,10 @@ $(document).ready(function(){
 
         if (typeof isPocket == "undefined"){
             isPocket = false;isTab = false;isIphone = false;isAndroid = false
-                                                                }
-        
+        }
+
+        handleCookies();
+
         if(!isPocket && !isTab){
             $("a").focus(function(){
                     $("a").removeClass("focus")
@@ -92,101 +94,30 @@ $(document).ready(function(){
         }
     })
 
-
-//function getLocation(){
-//    if(navigator.geolocation){
-//        browserSupportFlag = true;
-//        navigator.geolocation.getCurrentPosition(showLocation, errorHandler);
-//    } 
-//}
-//
-//function showLocation(position){
-//    var latitude = position.coords.latitude;
-//    var longitude = position.coords.longitude;
-//    sortEntities(latitude,longitude)
-//          
-//        }
-//function sortEntities(lat,lng){
-//    // alert(lat +lng)
-//    // sort the entities by lat long
-//    // not implemented
-//    // console.log("Latitude : " + latitude + " Longitude: " + longitude);
-//}
-//function errorHandler(err){
-//    if(err.code == 1){
-//        //console.log("Error: Access is denied!");
-//    }else if( err.code == 2){
-//        //console.log("Error: Position is unavailable!");
-//    }
-//}
-        
-function removeHint(el){
-        
-    var stored = readCookie("_saml_idp")
-        if (stored != null){
-            stored = stored.replace("null","");
-            var delItem = $.base64Encode($(el).attr("rel"))
-            delItem = encodeURIComponent(delItem);
-            var value = stored.replace(delItem,"");
-            //
-            // and strip of any trailing '+'
-            //
-            var x = value.substring(value.length-1);
-            while (value.substring(value.length-1) == "+") {
-                value = value.substring(0,value.length-1);
-            }
-            writeCookie("_saml_idp",value)
-        }
-    $(el).parent("li").remove();
-}       
-// read hints from the cookie
-// and add them to the DOM
-function loadHints(){
-    var stored = readCookie("_saml_idp")
-        if (stored != null ){
-            stored = stored.replace("null","")
-            var hints = stored.split("+");
-            for(i=0;i<=hints.length-1;i++){
-                if (i <=2){
-                    // decode a cookie string
-                    var eId = $.base64Decode(decodeURIComponent(hints[i]));
-                        if (eId != ""){
-                            var text = $("#combobox option[value='" +eId+ "']").text();
-			    if (null != text && "" != text) {
-                                var hint = $("<li class='hint'><a class='hint-link' href=\"" + theURL + encodeURIComponent(eId) + "\">" + text +"</a></li>")
-                                var remove = $("<span class='hide'> | </span><a href='#' title='remove this link' rel='" + eId + "' class='remove-org-btn' id=''>remove &times;</a>").click(function(){removeHint(this)})
-                                var imgURL = theLogos[eId];
-                                var imgWid = theWidths[eId];
-                                if (imgWid > 90) {
-				    imgWid = 90;
-				}
-                                var img = $(".hint-link", hint).append($("<img src='"+imgURL+"' width='"+imgWid+"' alt='' title=''/>").error(function() {$(this).remove();}))
-                                hint.append(img);
-                                hint.append(remove);
-                                $("#hints").append(hint);
-			    }
-                        }
-                }
-            }
-        }
+var  cookieYes = function ( ) {
+    var s = theURL.replace("cache=none","cache=perm");
+    theURL = s;
+    writeCookie("CookieMonitor","yes");
+    $("#CookieMsgAnchor").hide();
+}
+ 
+function cookieNo( ) {
+    // Note that we cannot record this event
+    deleteCookie("CookieMonitor","");
+    deleteCookie("_saml_idp","");
+    $("#CookieMsgAnchor").hide();
 }
 
+function handleCookies()
+{
+    var cookieOK = readCookie("CookieMonitor");
 
-// write hints to a cookie
+    if (cookieOK == "yes") {
+        var s = theURL.replace("cache=none","cache=perm");
+        theURL = s;
+    } else {
 
-function writeCookie(name, value) {
-    var date = new Date();
-    date.setDate(date.getDate()+ 365);
-    document.cookie = name + "=" + value + "; path=/; " + "expires=" + date.toUTCString();
-}
-
-function readCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        var anchor = $("#CookieMsgAnchor");
+        anchor.html("We use cookies to make your experience of this website better. To comply with 'The Privacy and Electronic Communications (EC Directive) (Amendment) Regulations 2011' we have to ask for your consent to set these cookies. <button onclick=cookieYes()>I agree</button>&nbsp;<button onclick=cookieNo()>No thanks</button>&nbsp;<a href=\"help\cookies.jsp"+theParams+"\">Find out more</a>");
     }
-    return ;
 }
