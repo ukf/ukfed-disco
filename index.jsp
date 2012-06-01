@@ -8,6 +8,7 @@
 
 <%
    TreeSet<IdPSite> sites;
+
    StringBuilder baseUrlBuilder = new StringBuilder();
    StringBuilder allURL = new StringBuilder();
    StringBuilder theURL  = new StringBuilder();
