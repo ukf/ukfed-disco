@@ -275,7 +275,8 @@ var theLogos=[];<%
 
 			
 
-			<p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a></p>
+<p id="footer-text">The UK Access Management Federation<br /><a href="accessibility-statement.html"  accesskey="0">Accessibility statement</a>
+&nbsp;<a href="http://www.ukfederation.org.uk/content/Documents/PrivacyAndCookiesPolicy">Privacy and Cookies Policy</a></p>
 <p id="footer-text">Search over <a href="<%=allURL%>">All Sites</a></p>
 		</div>
 	</div>
